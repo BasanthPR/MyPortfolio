@@ -1,0 +1,41 @@
+[
+  {
+    "id": "exp-01",
+    "company": "Your Company Name",
+    "role": "Data Science Intern",
+    "period": "Jun 2025 – Aug 2025",
+    "duration": "T+3M",
+    "impact": "Built end-to-end ML pipeline that reduced prediction latency by 40%",
+    "description": "Worked on time-series forecasting models for operational intelligence. Designed feature engineering pipelines and deployed models to production using FastAPI and AWS Lambda.",
+    "tech": ["Python", "PyTorch", "AWS", "FastAPI", "Pandas"],
+    "accent": "#C1121F",
+    "type": "internship",
+    "logo": "/images/logos/placeholder-1.svg"
+  },
+  {
+    "id": "exp-02",
+    "company": "Freelance",
+    "role": "UI/UX Designer + Developer",
+    "period": "Jan 2024 – Present",
+    "duration": "T+15M",
+    "impact": "Delivered 6+ client projects across edtech, healthtech, and consumer apps",
+    "description": "End-to-end product design and frontend development for early-stage startups. Specialize in design systems, motion and 3D web experiences.",
+    "tech": ["Figma", "React", "Next.js", "Framer Motion", "Three.js"],
+    "accent": "#FF4655",
+    "type": "freelance",
+    "logo": "/images/logos/placeholder-2.svg"
+  },
+  {
+    "id": "exp-03",
+    "company": "University Research Lab",
+    "role": "Research Assistant — Computer Vision",
+    "period": "Aug 2024 – Dec 2024",
+    "duration": "T+5M",
+    "impact": "Co-authored paper on satellite imagery segmentation using U-Net variants",
+    "description": "Part of an interdisciplinary team working on deep learning models for remote sensing. Implemented attention mechanisms and spectral band ablation studies.",
+    "tech": ["PyTorch", "OpenCV", "GDAL", "Python", "CUDA"],
+    "accent": "#00D4FF",
+    "type": "research",
+    "logo": "/images/logos/placeholder-3.svg"
+  }
+]

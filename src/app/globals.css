@@ -1,0 +1,341 @@
+@import "tailwindcss";
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   DESIGN SYSTEM — "Blood, Carbon, Data"
+   Palette: GOT medieval darkness × F1 precision × Data Science telemetry
+══════════════════════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ── Core Palette ─────────────────────────────────────────── */
+  --color-void:    #05050A;   /* Deepest background */
+  --color-blood:   #C1121F;   /* GOT red / F1 danger — primary accent */
+  --color-gold:    #D4A843;   /* Lannister gold / podium — secondary */
+  --color-carbon:  #1A1A2E;   /* F1 carbon fiber surface */
+  --color-data:    #00D4FF;   /* Telemetry / data science blue */
+  --color-fog:     #8A8A9E;   /* Muted text */
+  --color-ivory:   #F2EDE8;   /* Display text — aged parchment */
+
+  /* ── Legacy aliases (keep existing components from breaking) ─ */
+  --color-dark:           #05050A;
+  --color-light:          #F2EDE8;
+  --color-coral:          #C1121F;   /* Remapped to blood */
+  --color-blue:           #00D4FF;   /* Remapped to data */
+  --color-emerald:        #1D9E75;
+  --color-amber:          #D4A843;   /* Remapped to gold */
+  --color-dark-secondary: #0F0F1A;
+
+  /* ── Typography ──────────────────────────────────────────────  */
+  --font-display: var(--font-instrument-serif);
+  --font-sans:    var(--font-dm-sans);
+  --font-mono:    var(--font-jetbrains-mono);
+
+  /* ── Easing ──────────────────────────────────────────────── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ── Keyframe Animations ─────────────────────────────────── */
+  --animate-fade-up: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-fade-in: fadeIn 0.5s ease forwards;
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-40px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  @keyframes scanline {
+    0%   { transform: translateY(-100vh); }
+    100% { transform: translateY(100vh); }
+  }
+
+  @keyframes tabFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulseBlood {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
+  }
+
+  @keyframes trailFade {
+    from { stroke-opacity: 0.8; }
+    to   { stroke-opacity: 0; }
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   GLOBAL BASE
+══════════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  color-scheme: dark;
+  /* Expose CSS vars for JS access */
+  --blood:  #C1121F;
+  --gold:   #D4A843;
+  --data:   #00D4FF;
+  --ivory:  #F2EDE8;
+  --void:   #05050A;
+  --carbon: #1A1A2E;
+  --fog:    #8A8A9E;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  background-color: #05050A;
+  color: #F2EDE8;
+}
+
+body {
+  background-color: #05050A;
+  color: #F2EDE8;
+  cursor: none;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ── Film Grain Overlay ────────────────────────────────────────────────────── */
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: -200%;
+  width: 400%;
+  height: 400%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  opacity: 0.028;
+  pointer-events: none;
+  z-index: 9998;
+  animation: grainShift 0.8s steps(2) infinite;
+}
+
+@keyframes grainShift {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-5%, -5%); }
+  50%  { transform: translate(5%, 5%); }
+  75%  { transform: translate(-5%, 5%); }
+  100% { transform: translate(5%, -5%); }
+}
+
+/* ── Horizontal Scanline ───────────────────────────────────────────────────── */
+
+body::before {
+  content: '';
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(193, 18, 31, 0.15), transparent);
+  pointer-events: none;
+  z-index: 9997;
+  animation: scanline 12s linear infinite;
+}
+
+/* ── Touch / Mobile ─────────────────────────────────────────────────────────── */
+
+@media (pointer: coarse) {
+  body { cursor: auto; }
+  body::before { display: none; }
+}
+
+/* ── Selection ──────────────────────────────────────────────────────────────── */
+
+::selection {
+  background-color: #C1121F;
+  color: #F2EDE8;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: #05050A; }
+::-webkit-scrollbar-thumb {
+  background: #C1121F40;
+  border-radius: 1px;
+}
+
+/* ── Skip to Content ────────────────────────────────────────────────────────── */
+
+.skip-to-content {
+  position: fixed;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: #C1121F;
+  color: #F2EDE8;
+  font-size: 0.875rem;
+  border-radius: 0 0 8px 8px;
+  transition: top 0.2s;
+}
+.skip-to-content:focus { top: 0; }
+
+/* ── Utilities ──────────────────────────────────────────────────────────────── */
+
+.bg-gradient-radial {
+  background: radial-gradient(circle at 50% 50%, var(--tw-gradient-stops));
+}
+
+/* Diagonal clip-path for section breaks */
+.clip-diagonal {
+  clip-path: polygon(0 0, 100% 3%, 100% 100%, 0 97%);
+}
+.clip-diagonal-reverse {
+  clip-path: polygon(0 3%, 100% 0, 100% 97%, 0 100%);
+}
+
+/* Skills marquee container */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 20s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+
+/* Telemetry glow on hover for data elements */
+.tele-glow:hover {
+  text-shadow: 0 0 12px rgba(0, 212, 255, 0.6);
+  color: #00D4FF;
+  transition: all 0.3s;
+}
+
+/* Carbon fiber texture background */
+.carbon-texture {
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.015) 2px,
+      rgba(255,255,255,0.015) 4px
+    );
+}
+
+/* ── GSAP Markers (always hide) ─────────────────────────────────────────────── */
+
+.gsap-marker-start,
+.gsap-marker-end,
+.gsap-marker-scroller-start,
+.gsap-marker-scroller-end { display: none !important; }
+
+/* ── GPU Acceleration for scroll elements ───────────────────────────────────── */
+
+.project-card {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* ── Volume Slider ──────────────────────────────────────────────────────────── */
+
+input[type='range']::-webkit-slider-track {
+  background: rgba(242, 237, 232, 0.08);
+  height: 1px;
+  border-radius: 1px;
+}
+input[type='range']::-moz-range-track {
+  background: rgba(242, 237, 232, 0.08);
+  height: 1px;
+  border-radius: 1px;
+}
+
+/* ── Quote section ──────────────────────────────────────────────────────────── */
+
+#quotes .quote-slide { scroll-snap-align: start; }
+
+/* ── Reduced Motion ─────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Cinematic Effects (DNEG Inspired) ──────────────────────────────────────── */
+
+.cinematic-transition {
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.film-chronicle::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at center, transparent 40%, rgba(5,5,10,0.4) 100%);
+  z-index: 10;
+}
+
+.ticker-strip {
+  display: flex;
+  white-space: nowrap;
+  animation: tickerScroll 40s linear infinite;
+}
+
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Valorant Aesthetic ─────────────────────────────────────────────────────── */
+
+.valorant-clip {
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.valorant-clip-box {
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  position: relative;
+}
+
+/* Glowing border effect for sharp boxes */
+.valorant-glow {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 70, 85, 0.4);
+  box-shadow: 0 0 15px rgba(255, 70, 85, 0.15) inset, 0 0 15px rgba(255, 70, 85, 0.15);
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.group:hover .valorant-glow {
+  border: 1px solid rgba(255, 70, 85, 0.9);
+  box-shadow: 0 0 25px rgba(255, 70, 85, 0.3) inset, 0 0 25px rgba(255, 70, 85, 0.3);
+}
+
+/* Glitch animation for text */
+@keyframes glitch-anim {
+  0% { clip-path: inset(10% 0 80% 0); transform: translate(-2px, 2px); }
+  20% { clip-path: inset(80% 0 10% 0); transform: translate(2px, -2px); }
+  40% { clip-path: inset(40% 0 50% 0); transform: translate(2px, 2px); }
+  60% { clip-path: inset(60% 0 20% 0); transform: translate(-2px, -2px); }
+  80% { clip-path: inset(20% 0 60% 0); transform: translate(2px, -2px); }
+  100% { clip-path: inset(50% 0 30% 0); transform: translate(-2px, 2px); }
+}
+
+.glitch-hover:hover {
+  animation: glitch-anim 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+}

@@ -1,0 +1,79 @@
+[
+  {
+    "id": "book-01",
+    "title": "The Design of Everyday Things",
+    "author": "Don Norman",
+    "cover": "/images/books/design-everyday-things.jpg",
+    "color": "#E8593C",
+    "rating": 5,
+    "review": "The bible of UX. Norman's concept of affordances fundamentally changed how I think about designing for humans.",
+    "year": 2025,
+    "genre": "Design"
+  },
+  {
+    "id": "book-02",
+    "title": "Sapiens",
+    "author": "Yuval Noah Harari",
+    "cover": "/images/books/sapiens.jpg",
+    "color": "#3B8BD4",
+    "rating": 5,
+    "review": "A sweeping narrative of humanity that makes you question every institution we take for granted.",
+    "year": 2025,
+    "genre": "History"
+  },
+  {
+    "id": "book-03",
+    "title": "The Creative Act",
+    "author": "Rick Rubin",
+    "cover": "/images/books/creative-act.jpg",
+    "color": "#BA7517",
+    "rating": 5,
+    "review": "Less about music production, more about tuning into the universe. A meditation on creativity itself.",
+    "year": 2025,
+    "genre": "Creative"
+  },
+  {
+    "id": "book-04",
+    "title": "Zero to One",
+    "author": "Peter Thiel",
+    "cover": "/images/books/zero-to-one.jpg",
+    "color": "#1D9E75",
+    "rating": 4,
+    "review": "Contrarian thinking at its sharpest. Forces you to ask: are you building the future or just copying it?",
+    "year": 2025,
+    "genre": "Business"
+  },
+  {
+    "id": "book-05",
+    "title": "Thinking, Fast and Slow",
+    "author": "Daniel Kahneman",
+    "cover": "/images/books/thinking-fast-slow.jpg",
+    "color": "#8B5CF6",
+    "rating": 5,
+    "review": "A masterclass in human cognition. Every product decision I make now runs through this lens.",
+    "year": 2025,
+    "genre": "Psychology"
+  },
+  {
+    "id": "book-06",
+    "title": "The Almanack of Naval Ravikant",
+    "author": "Eric Jorgenson",
+    "cover": "/images/books/almanack-naval.jpg",
+    "color": "#E8593C",
+    "rating": 5,
+    "review": "More than a business book — it's a philosophy for living with intention, building wealth, and finding peace.",
+    "year": 2025,
+    "genre": "Philosophy"
+  },
+  {
+    "id": "book-07",
+    "title": "Show Your Work!",
+    "author": "Austin Kleon",
+    "cover": "/images/books/show-your-work.jpg",
+    "color": "#3B8BD4",
+    "rating": 4,
+    "review": "The permission slip I needed to build in public. Changed how I think about sharing the process.",
+    "year": 2025,
+    "genre": "Creative"
+  }
+]

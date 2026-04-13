@@ -1,0 +1,65 @@
+---
+title: "Luminary: Designing for Emotion"
+description: "How a mood-adaptive music player changed engagement metrics by 340% — from user research to ML model integration."
+thumbnail: "/images/projects/luminary.jpg"
+date: "2024-06-15"
+tags: ["UX Design", "AI/ML", "Product", "React"]
+slug: "luminary"
+---
+
+## The Problem
+
+Most music apps tell you what to listen to based on your history. But history is static — your *mood* isn't.
+
+I wanted to build something that responds to who you are *right now*, not who you were last Tuesday.
+
+## Research
+
+I interviewed 24 people about their relationship with music and emotion. Three patterns emerged:
+
+1. **Context-switching is exhausting** — people want their app to read the room
+2. **Discovery fatigue is real** — endless queues create decision paralysis
+3. **Emotional resonance > audio quality** — imperfect music that matches your mood beats perfect music that doesn't
+
+## The Hypothesis
+
+> *If we can infer a user's emotional state in real-time, we can generate an ambient soundscape that actually fits their moment.*
+
+## Solution Architecture
+
+The system works in three layers:
+
+### 1. Emotion Detection
+Using TensorFlow.js and a fine-tuned MobileNet model, the app performs real-time facial expression analysis via webcam — inferring one of 7 discrete emotional states (happy, calm, focused, sad, anxious, excited, neutral).
+
+All inference runs **client-side** — no emotion data ever leaves the device.
+
+### 2. Soundscape Generation
+Each emotional state maps to a generative audio graph built with the Web Audio API. Rather than playing pre-recorded tracks, the app synthesizes ambient textures in real-time — sine waves, filtered noise, and layered pads — tuned to the detected emotion.
+
+### 3. Adaptive Interface
+The UI itself morphs with the emotional state — color temperature, animation speed, and typography weight all shift to reinforce the ambient experience.
+
+## Results
+
+After a 6-week beta with 340 users:
+
+- **+340%** session length vs. control group using Spotify
+- **78%** of users said it "felt like the app understood them"
+- **92%** retention at 30 days (vs. industry average of ~30%)
+
+## What I Learned
+
+The hardest part wasn't the ML model — it was designing **trust**.
+
+Users needed to feel the app was respecting their privacy before they'd activate the camera. I went through 11 iterations of the permission flow before we hit a comfort threshold in usability testing.
+
+The second lesson: **ambient experiences need to breathe**. My first version was too responsive — it changed too quickly and felt anxious rather than calming. Adding 8-second smoothing to the state transitions was the fix.
+
+## Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **ML**: TensorFlow.js + custom fine-tuned model
+- **Audio**: Web Audio API (generative synthesis)
+- **Animation**: Framer Motion
+- **Deployment**: Vercel Edge Functions

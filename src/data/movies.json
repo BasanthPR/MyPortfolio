@@ -1,0 +1,79 @@
+[
+  {
+    "id": "movie-01",
+    "title": "Everything Everywhere All at Once",
+    "poster": "/images/movies/eeaao.jpg",
+    "color": "#E8593C",
+    "rating": 5,
+    "review": "A maximalist masterpiece that somehow makes nihilism feel like the most hopeful thing in the universe.",
+    "type": "movie",
+    "year": 2025,
+    "genre": "Sci-Fi"
+  },
+  {
+    "id": "movie-02",
+    "title": "Succession",
+    "poster": "/images/movies/succession.jpg",
+    "color": "#3B8BD4",
+    "rating": 5,
+    "review": "The most precise portrait of power, family, and self-delusion ever put to screen.",
+    "type": "tv",
+    "year": 2025,
+    "genre": "Drama"
+  },
+  {
+    "id": "movie-03",
+    "title": "Arrival",
+    "poster": "/images/movies/arrival.jpg",
+    "color": "#1D9E75",
+    "rating": 5,
+    "review": "A film about language, time, and grief that completely reframes how you experience the narrative on rewatch.",
+    "type": "movie",
+    "year": 2025,
+    "genre": "Sci-Fi"
+  },
+  {
+    "id": "movie-04",
+    "title": "The Bear",
+    "poster": "/images/movies/the-bear.jpg",
+    "color": "#BA7517",
+    "rating": 5,
+    "review": "The most viscerally stressful television I've ever watched. Also the most human.",
+    "type": "tv",
+    "year": 2025,
+    "genre": "Drama"
+  },
+  {
+    "id": "movie-05",
+    "title": "Oppenheimer",
+    "poster": "/images/movies/oppenheimer.jpg",
+    "color": "#E8593C",
+    "rating": 5,
+    "review": "Nolan at the height of his powers. The Trinity test sequence is pure cinema.",
+    "type": "movie",
+    "year": 2025,
+    "genre": "Drama"
+  },
+  {
+    "id": "movie-06",
+    "title": "Severance",
+    "poster": "/images/movies/severance.jpg",
+    "color": "#8B5CF6",
+    "rating": 5,
+    "review": "A metaphor for compartmentalization that's also genuinely terrifying. One of the best pilots ever made.",
+    "type": "tv",
+    "year": 2025,
+    "genre": "Thriller"
+  },
+  {
+    "id": "movie-07",
+    "title": "Past Lives",
+    "poster": "/images/movies/past-lives.jpg",
+    "color": "#3B8BD4",
+    "rating": 5,
+    "review": "The most devastating quiet film. Proves you don't need plot to break someone's heart.",
+    "type": "movie",
+    "year": 2025,
+    "genre": "Romance"
+  }
+]
