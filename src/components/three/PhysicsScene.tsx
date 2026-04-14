@@ -236,10 +236,10 @@ function PhysicsSystem({ nodes }: { nodes: NodeConfig[] }) {
 export default function PhysicsScene() {
   // Spawn nodes across the entire scroll envelope
   const nodes = useMemo<NodeConfig[]>(() => {
-    return Array.from({ length: 80 }, (_, i) => ({
+    return Array.from({ length: 120 }, (_, i) => ({
       position: [
         randomBetween(-25, 25), // Wide X
-        randomBetween(20, -120), // Deep Y axis to cover scrolling
+        randomBetween(30, -100), // More density near the top (opening)
         randomBetween(6, -15), // Parallax depth
       ],
       geo: GEOMETRIES[i % GEOMETRIES.length],

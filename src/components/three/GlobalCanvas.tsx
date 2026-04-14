@@ -42,7 +42,7 @@ function SceneLighting() {
 
 export default function GlobalCanvas() {
   return (
-    <div className="fixed inset-0 z-[-1] pointer-events-none bg-[#05050A]">
+    <div className="fixed inset-0 z-0 pointer-events-none">
       <CanvasErrorBoundary fallback={<ErrorFallback />}>
         <Canvas
           gl={{
