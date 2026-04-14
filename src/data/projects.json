@@ -1,19 +1,19 @@
 [
   {
     "id": "project-01",
-    "title": "Luminary",
-    "description": "A mood-adaptive music player that generates ambient soundscapes based on your emotional state using ML inference.",
-    "longDescription": "Built to explore the intersection of machine learning and emotional UX. The model runs client-side via TensorFlow.js, analyzing facial micro-expressions through the webcam to infer mood states and generate real-time audio.",
-    "tech": ["Next.js", "TensorFlow.js", "Web Audio API", "Framer Motion"],
-    "thumbnail": "/images/projects/luminary.jpg",
-    "video": "/videos/projects/luminary.mp4",
+    "title": "F1 Race Winner Prediction System",
+    "description": "An end-to-end Machine Learning pipeline predicting Formula 1 race winners using historic telemetry and Monte Carlo simulations.",
+    "longDescription": "Built a predictive ecosystem combining XGBoost, Bayesian Inference, and Monte Carlo lap-by-lap physical simulations to predict race outcomes under the new 2026 ground-effect regulations. Ingested 1,200+ races via OpenF1 and Jolpica APIs with custom feature engineering for active aero and complex energy management.",
+    "tech": ["Python", "XGBoost", "FastF1", "Monte Carlo", "Bayesian inference"],
+    "thumbnail": "/images/projects/cartograph.jpg",
+    "video": null,
     "accent": "#E8593C",
-    "link": "https://luminary.demo",
-    "github": "https://github.com/basanthyajman/luminary",
-    "caseStudySlug": "luminary",
-    "year": 2024,
+    "link": "https://github.com/BasanthPR/2026-australian-gp-prediction",
+    "github": "https://github.com/BasanthPR/2026-australian-gp-prediction",
+    "caseStudySlug": "f1-and-ml",
+    "year": 2026,
     "featured": true,
-    "tags": ["AI/ML", "Audio", "UX"]
+    "tags": ["AI/ML", "Data Science", "Python"]
   },
   {
     "id": "project-02",
