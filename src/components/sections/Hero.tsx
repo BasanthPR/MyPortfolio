@@ -23,7 +23,7 @@ export default function Hero() {
     <section
       ref={ref}
       id="hero"
-      className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-transparent"
+      className="relative w-full h-[100dvh] flex flex-col items-center justify-center overflow-hidden bg-transparent"
       aria-label="Hero"
       onPointerDown={() => setInteracted(true)}
     >

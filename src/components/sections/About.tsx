@@ -133,7 +133,7 @@ export default function About() {
   const isTextInView = useInView(textRef as React.RefObject<Element>, { once: true, margin: '-10% 0px' });
 
   return (
-    <section ref={sectionRef} id="about" className="relative py-36 md:py-48 bg-[var(--void)] overflow-hidden">
+    <section ref={sectionRef} id="about" className="relative py-36 md:py-48 bg-transparent overflow-hidden">
       {/* Subtle ambient glow */}
       <div
         className="absolute top-0 right-0 w-96 h-96 rounded-full pointer-events-none blur-[200px] opacity-[0.04]"

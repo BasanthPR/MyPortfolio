@@ -8,6 +8,7 @@ import Navbar from '@/components/layout/Navbar';
 import GlobalCanvas from '@/components/three/GlobalCanvas';
 import MusicToggle from '@/components/ui/MusicToggle';
 import SectionMusicSync from '@/components/layout/SectionMusicSync';
+import InteractionAudio from '@/components/layout/InteractionAudio';
 import ScrollToTop from '@/components/ui/ScrollToTop';
 import siteData from '@/data/site.json';
 import socialData from '@/data/social.json';
@@ -122,6 +123,7 @@ export default function RootLayout({
             {children}
           </main>
           <SectionMusicSync />
+          <InteractionAudio />
           <ScrollToTop />
           <MusicToggle />
         </SmoothScroll>

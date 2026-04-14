@@ -188,7 +188,7 @@ export default function Projects() {
     <section
       ref={sectionRef}
       id="projects"
-      className="relative overflow-hidden bg-[var(--void)]"
+      className="relative overflow-hidden bg-transparent"
       style={{ height: '100vh' }}
       aria-label="Projects"
     >
