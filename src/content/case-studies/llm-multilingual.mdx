@@ -1,0 +1,51 @@
+---
+title: "The Multilingual Deficit in LLMs"
+description: "A deep dive into why Large Language Models systematically disadvantage non-English languages through tokenization and architectural bias."
+thumbnail: "/images/projects/llm-research.jpg"
+date: "2026-04-10"
+tags: ["NLP", "Tokenization", "Applied Data Science", "Research"]
+slug: "llm-multilingual"
+---
+
+## The Abstract
+
+Large Language Models systematically disadvantage non-English languages at every level. A Kannada sentence requires **3–5× more tokens** than its English equivalent, costs proportionally more to process, and produces lower-quality outputs. This research traces the cascade from byte-level tokenization through attention mechanisms to final generation.
+
+## Key Research Findings
+
+### 1. The Fertility Crisis
+Token fertility is the average number of tokens per word. My research quantified that equivalent semantic content for Indic languages costs up to 15x more in positional encoding slots.
+
+| Language | GPT-4 Fertility vs English | GPT-4o Reduction |
+| :--- | :--- | :--- |
+| **Kannada** | ~3–4× | 79% Improvement |
+| **Malayalam**| ~4–5× | 79% Improvement |
+| **Hindi** | ~2–3× | 64% Improvement |
+
+### 2. The Economic Inequity
+The "Script Tax" means non-English speakers obtain worse results for higher costs. At scale, a Hindi-based service pays roughly **$300,000 more annually** than an identical English service due to token inefficiency.
+
+### 3. The Context Window Shrinkage
+A 128K-token context window effectively shrinks to **25,000–42,000 tokens** of usable content for Hindi or Arabic, severely limiting RAG (Retrieval-Augmented Generation) applications for world languages.
+
+---
+
+## Technical Analysis: Byte-Level Tokenization
+
+I analyzed how **Byte Pair Encoding (BPE)** creates a fundamental tax. Since UTF-8 characters for Kannada consume 3 bytes while English consumes 1, the BPE algorithm needs more merges to constitute a single character. 
+
+Because English dominates training data (95% in Llama 3), English byte-pair merges are learned first. Non-Latin byte sequences often never get merged into complete characters, leaving individual bytes as tokens—destroying semantic integrity.
+
+## The "Gemini Moment"
+
+This research was sparked by a real-world test: Asking Gemini to write a Kannada anchoring speech for a cultural festival (Sankranti). Despite Kannada representing only **0.019% of common crawl data**, the model produced culturally nuanced prose, leading me to investigate the cross-lingual embedding spaces that enable this high performance against massive data odds.
+
+---
+
+## Solutions Investigated
+
+- **MAGNET (NeurIPS 2024)**: Adaptive tokenization.
+- **Vocabulary Expansion**: Parameter freezing with subword initialization.
+- **Sovereign Models**: The rise of IndicTrans2 and Sarvam-1.
+
+[Download Full Research PDF](/documents/How_LLMs_Process_Non_English_Languages.pdf)

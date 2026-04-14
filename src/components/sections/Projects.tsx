@@ -26,7 +26,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
   return (
     <article
-      className="project-card relative flex-shrink-0 w-[85vw] md:w-[65vw] lg:w-[55vw] h-full rounded-lg overflow-hidden border bg-[var(--carbon)] cursor-pointer select-none carbon-texture"
+      className="project-card relative flex-shrink-0 w-[80vw] md:w-[50vw] lg:w-[40vw] h-[60vh] md:h-[70vh] rounded-lg overflow-hidden border bg-[var(--carbon)] cursor-pointer select-none carbon-texture"
       style={{ borderColor: 'rgba(242,237,232,0.05)' }}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
@@ -59,7 +59,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
       {/* Telemetry Overlay — replaced with minimal project tag */}
       <div 
-        className="absolute top-6 left-6 z-20 flex flex-col gap-1 px-3 py-2 border pointer-events-none"
+        className="absolute top-4 left-4 md:top-6 md:left-6 z-20 flex flex-col gap-1 px-3 py-2 border pointer-events-none"
         style={{ 
           fontFamily: 'var(--font-jetbrains-mono)', 
           background: 'rgba(5,5,10,0.75)', 
@@ -68,22 +68,22 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         }}
       >
         <div className="flex gap-3 items-center">
-          <span className="text-[9px] tracking-[0.2em] text-white/20">{String(index + 1).padStart(2, '0')}</span>
-          <span className="text-[9px] tracking-[0.15em] uppercase truncate max-w-[140px]" style={{ color: 'rgba(242,237,232,0.5)' }}>◆ {project.title}</span>
+          <span className="text-[8px] tracking-[0.2em] text-white/20">{String(index + 1).padStart(2, '0')}</span>
+          <span className="text-[8px] tracking-[0.15em] uppercase truncate max-w-[120px]" style={{ color: 'rgba(242,237,232,0.5)' }}>◆ {project.title}</span>
         </div>
         <div className="flex gap-2 items-center">
-          <span className="text-[8px] text-white/20">Stack ·</span>
-          <span className="text-[8px] tracking-wide" style={{ color: 'rgba(0,212,255,0.6)' }}>{project.tech.slice(0, 3).join(' / ')}</span>
+          <span className="text-[7px] text-white/20">Stack ·</span>
+          <span className="text-[7px] tracking-wide" style={{ color: 'rgba(0,212,255,0.6)' }}>{project.tech.slice(0, 3).join(' / ')}</span>
         </div>
       </div>
 
-      <div className="relative z-20 flex flex-col justify-end h-full p-8 md:p-12 pointer-events-none">
+      <div className="relative z-20 flex flex-col justify-end h-full p-6 md:p-10 pointer-events-none">
         
         <h3
-          className="font-normal leading-none mb-4 tracking-tight"
+          className="font-normal leading-none mb-3 tracking-tight"
           style={{
             fontFamily: 'var(--font-instrument-serif)',
-            fontSize: 'clamp(2.5rem, 4vw, 4rem)',
+            fontSize: 'clamp(2rem, 3.5vw, 3.2rem)',
             color: 'var(--ivory)',
           }}
         >
@@ -91,28 +91,28 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </h3>
         
         <p
-          className="text-sm leading-relaxed mb-8 max-w-md"
+          className="text-xs md:text-sm leading-relaxed mb-6 max-w-sm"
           style={{ fontFamily: 'var(--font-dm-sans)', color: 'rgba(242,237,232,0.5)' }}
         >
           {project.description}
         </p>
 
-        <div className="flex gap-4 pointer-events-auto">
-          {project.link && (
+        <div className="flex gap-3 pointer-events-auto">
+          {(project.link || project.caseStudySlug) && (
             <a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-2 px-5 py-3 rounded border text-[10px] transition-all duration-300 hover:bg-white/5"
+              href={project.caseStudySlug ? `/projects/${project.caseStudySlug}` : project.link || '#'}
+              className="group flex items-center gap-2 px-4 py-2.5 rounded border text-[9px] transition-all duration-300 hover:bg-white/5"
               style={{
                 fontFamily: 'var(--font-jetbrains-mono)',
                 letterSpacing: '0.15em',
                 borderColor: `${project.accent}40`,
                 color: project.accent,
               }}
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e) => {
+                // If internal link, handle normally. For external, keep target _blank.
+              }}
             >
-              LIVE DEPLOY
+              {project.caseStudySlug ? 'VIEW CASE' : 'LIVE'}
               <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
             </a>
           )}
@@ -121,7 +121,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-3 rounded border text-[10px] transition-all duration-300 hover:bg-white/5"
+              className="flex items-center gap-2 px-4 py-2.5 rounded border text-[9px] transition-all duration-300 hover:bg-white/5"
               style={{
                 fontFamily: 'var(--font-jetbrains-mono)',
                 letterSpacing: '0.15em',
@@ -130,7 +130,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               }}
               onClick={(e) => e.stopPropagation()}
             >
-              REPO ↗
+              CODE ↗
             </a>
           )}
         </div>
@@ -158,7 +158,7 @@ export default function Projects() {
       if (!section || !track) return;
 
       const cardCount = projectsData.length;
-      const cardWidth = window.innerWidth <= 768 ? 0.85 : 0.55;
+      const cardWidth = window.innerWidth <= 768 ? 0.8 : 0.4;
       const totalScroll = cardCount * cardWidth * window.innerWidth - window.innerWidth + 120;
 
       ctx = gsap.context(() => {
@@ -188,23 +188,23 @@ export default function Projects() {
     <section
       ref={sectionRef}
       id="projects"
-      className="relative overflow-hidden bg-transparent"
-      style={{ height: '100vh' }}
+      className="relative overflow-hidden bg-transparent flex items-center"
+      style={{ minHeight: '100vh', padding: '10vh 0' }}
       aria-label="Projects"
     >
-      <div ref={headerRef} className="absolute top-10 left-8 md:left-16 z-30 pointer-events-none">
+      <div ref={headerRef} className="absolute top-12 left-8 md:left-20 z-30 pointer-events-none">
         <motion.p
-          className="text-[10px] tracking-[0.4em] uppercase mb-2"
+          className="text-[9px] tracking-[0.4em] uppercase mb-2"
           style={{ fontFamily: 'var(--font-jetbrains-mono)', color: 'rgba(242,237,232,0.25)' }}
           initial={{ opacity: 0, y: -10 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          Work
+          Selected Work
         </motion.p>
         <motion.h2
           className="font-normal leading-none"
-          style={{ fontFamily: 'var(--font-instrument-serif)', fontSize: 'clamp(2rem, 4vw, 3rem)', color: 'var(--ivory)', letterSpacing: '-0.02em' }}
+          style={{ fontFamily: 'var(--font-instrument-serif)', fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', color: 'var(--ivory)', letterSpacing: '-0.02em' }}
           initial={{ opacity: 0, y: -10 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
@@ -214,25 +214,25 @@ export default function Projects() {
       </div>
 
       <motion.div
-        className="absolute bottom-10 right-8 md:right-16 z-30 flex items-center gap-3 pointer-events-none"
+        className="absolute bottom-12 right-8 md:right-20 z-30 flex items-center gap-3 pointer-events-none"
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : {}}
         transition={{ duration: 0.6, delay: 0.5 }}
       >
-        <span className="text-[9px] tracking-[0.3em] uppercase" style={{ fontFamily: 'var(--font-jetbrains-mono)', color: 'var(--fog)' }}>
-          Scroll track
+        <span className="text-[8px] tracking-[0.3em] uppercase" style={{ fontFamily: 'var(--font-jetbrains-mono)', color: 'var(--fog)' }}>
+          Horizon Scroller
         </span>
         <motion.span style={{ color: 'var(--blood)' }} animate={{ x: [0, 6, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}>
           →
         </motion.span>
       </motion.div>
 
-      <div ref={trackRef} className="absolute top-0 left-0 flex items-center h-full gap-6 px-16 md:px-24" style={{ willChange: 'transform' }}>
-        <div className="flex-shrink-0 w-4 md:w-8" />
+      <div ref={trackRef} className="relative flex items-center h-full gap-8 px-20 md:px-32" style={{ willChange: 'transform' }}>
+        <div className="flex-shrink-0 w-8 md:w-20" />
         {projectsData.map((project, i) => (
           <ProjectCard key={project.id} project={project} index={i} />
         ))}
-        <div className="flex-shrink-0 w-4 md:w-8" />
+        <div className="flex-shrink-0 w-8 md:w-20" />
       </div>
     </section>
   );

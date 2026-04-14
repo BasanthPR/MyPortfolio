@@ -1,0 +1,52 @@
+---
+title: "F1 Race Winner Prediction System"
+description: "Predicting the unpredictable: An ensemble ML approach to Formula 1 race outcomes in the 2026 ground-effect era."
+thumbnail: "/images/projects/f1-prediction.jpg"
+date: "2026-03-25"
+tags: ["XGBoost", "Monte Carlo", "Bayesian", "Python"]
+slug: "f1-predictor"
+---
+
+## The Challenge
+
+Predicting an F1 winner is one of the most complex problems in sports analytics. Beyond driver skill, you must account for tire strategy, real-time telemetry, safety cars, and the massive regulatory reset of 2026.
+
+I built a system that combines three fundamentally different modeling philosophies to capture the full nuance of a race weekend.
+
+## The Triple-Model Architecture
+
+### 1. XGBoost: The Pattern Finder
+Trained on **1,200+ historical races** (2014-2025). It learns non-linear relationships like the "grid position decay"—how P1 to P2 loss of win probability is far more severe than P10 to P11.
+- handles severe class imbalance (1 winner vs 19 non-winners) via `scale_pos_weight`.
+
+### 2. Monte Carlo: The Physics Engine
+Instead of patterns, this models the *process*. It runs 10,000 parallel-universe race simulations, sampling:
+- **Lap-to-lap variability** (Normal distribution)
+- **Tire Degradation** (Constructor-specific rates)
+- **Safety Car Luck** (1% per-lap probability at Albert Park)
+- **DNF Risks** (Elevated for the 2026 reg-change year)
+
+### 3. Bayesian Inference: The Belief Updater
+Starts with "Priors" (historical driver dominance) and updates them with qualifying "Evidence". It handles the "Unknown Unknowns" of 2026 by widening confidence intervals when uncertainty is high.
+
+---
+
+## Technical Edge: 2026 Wildcards
+
+Most models failed because they lacked 2026 context. I engineered specific features for:
+- **Active Aero Era**: Modeling dynamic front/rear wing adjustments.
+- **Energy Management**: The 50/50 ICE-to-Electric power split.
+- **Reliability Risk**: Applied a multiplier for backmarker teams running unproven power units (Cadillac, Audi).
+
+## Results
+
+The ensemble accurately predicted a 38.9% win probability for Russell in the Australian GP, correctly identifying that while his pace was dominant, the reliability risk and energy management gaps made it far from a "sure thing."
+
+---
+
+## Stack
+
+- **Data Ingestion**: FastF1, OpenF1 API, Jolpica-F1
+- **ML Engine**: Python, XGBoost, SciPy
+- **Simulations**: Monte Carlo (custom implementation)
+- **Visuals**: Matplotlib, Seaborn for win-probability heatmaps
