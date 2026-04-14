@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from '@vercel/analytics/next';
 import { instrumentSerif, dmSans, jetbrainsMono } from '@/lib/fonts';
 import SmoothScroll from '@/components/layout/SmoothScroll';
 import CustomCursor from '@/components/ui/CustomCursor';

@@ -67,7 +67,7 @@ const CASE_STUDIES: CaseStudyEntry[] = [
   },
 ];
 
-function CaseStudyCard({ study }: { study: CaseStudyEntry }) {
+function CaseStudyCard({ study, index, total }: { study: CaseStudyEntry; index?: number; total?: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref as React.RefObject<Element>, { once: true, margin: '-8% 0px' });
   const { setType } = useCursorStore();
