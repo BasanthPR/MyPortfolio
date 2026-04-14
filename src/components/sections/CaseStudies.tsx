@@ -236,12 +236,10 @@ export default function CaseStudies() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5 border border-white/5">
-        {CASE_STUDIES.map((study, i) => (
+        {CASE_STUDIES.map((study) => (
           <CaseStudyCard 
             key={study.id} 
             study={study} 
-            index={i} 
-            total={CASE_STUDIES.length}
           />
         ))}
       </div>
