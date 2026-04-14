@@ -145,16 +145,31 @@ export default function WorkExperience() {
       <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
         
         {/* Editorial Header */}
-        <div className="mb-24 md:mb-40 flex flex-col items-center md:items-start text-center md:text-left">
-          <motion.h2 
-            className="text-4xl md:text-7xl font-normal tracking-tight"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+        <div className="mb-24 md:mb-40 flex flex-col items-center md:items-start text-center md:text-left overflow-hidden">
+          <motion.p
+            className="text-[10px] tracking-[0.4em] uppercase mb-4"
+            style={{ fontFamily: 'var(--font-jetbrains-mono)', color: 'rgba(242,237,232,0.25)' }}
+            initial={{ opacity: 0, x: -12 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            style={{ color: '#F2EDE8', fontFamily: 'var(--font-instrument-serif)' }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
-             Selected <i className="text-white/50 block md:inline">Chronicle</i>
+            Chronicle
+          </motion.p>
+          <motion.h2 
+            className="font-normal leading-[1.0] tracking-tight"
+            initial={{ y: '100%' }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.0, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            style={{ 
+              color: '#F2EDE8', 
+              fontFamily: 'var(--font-instrument-serif)',
+              fontSize: 'clamp(2.6rem, 5vw, 5.5rem)',
+              letterSpacing: '-0.02em',
+            }}
+          >
+             Selected <i className="text-white/50">Experience</i>
           </motion.h2>
           <motion.div 
             className="w-px h-16 md:h-24 bg-gradient-to-b from-white/20 to-transparent mt-8"

@@ -205,7 +205,7 @@ export default function CaseStudies() {
     <section
       ref={ref}
       id="case-studies"
-      className="relative py-28 md:py-40 px-6 md:px-12 max-w-6xl mx-auto"
+      className="relative py-20 md:py-32 px-6 md:px-12 max-w-6xl mx-auto"
       aria-label="Case Studies"
     >
       {/* Section header */}
@@ -223,7 +223,8 @@ export default function CaseStudies() {
           className="font-normal text-white leading-none"
           style={{
             fontFamily: 'var(--font-instrument-serif)',
-            fontSize: 'clamp(2.5rem, 5vw, 5rem)',
+            fontSize: 'clamp(2.6rem, 5vw, 5.5rem)',
+            letterSpacing: '-0.02em',
           }}
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -234,10 +235,14 @@ export default function CaseStudies() {
         </motion.h2>
       </div>
 
-      {/* Case study cards */}
-      <div className="space-y-6">
-        {CASE_STUDIES.map((study) => (
-          <CaseStudyCard key={study.id} study={study} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5 border border-white/5">
+        {CASE_STUDIES.map((study, i) => (
+          <CaseStudyCard 
+            key={study.id} 
+            study={study} 
+            index={i} 
+            total={CASE_STUDIES.length}
+          />
         ))}
       </div>
 
