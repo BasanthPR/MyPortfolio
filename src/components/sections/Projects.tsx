@@ -381,10 +381,10 @@ export default function Projects() {
         animate={isInView ? { opacity: 1 } : {}}
         transition={{ duration: 0.6, delay: 0.5 }}
       >
-        <span className="text-[8px] tracking-[0.3em] uppercase opacity-30" style={{ fontFamily: 'var(--font-jetbrains-mono)', color: 'var(--ivory)' }}>
-          Sequential Horizon
+        <span className="text-[8px] tracking-[0.3em] uppercase opacity-40" style={{ fontFamily: 'var(--font-jetbrains-mono)', color: 'var(--fog)' }}>
+          Sequential Scroller
         </span>
-        <motion.span style={{ color: 'var(--ivory)', opacity: 0.2 }} animate={{ x: [0, 6, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}>
+        <motion.span style={{ color: 'var(--blood)', opacity: 0.4 }} animate={{ x: [0, 6, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}>
           →
         </motion.span>
       </motion.div>

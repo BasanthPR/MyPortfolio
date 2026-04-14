@@ -21,7 +21,7 @@ const CASE_STUDIES: CaseStudyEntry[] = [
     id: '1',
     title: 'F1 Race Winner Prediction System: The Triple Ensemble Approach',
     description:
-      'How I modeled the 2026 ground-effect era using XGBoost, Bayesian Inference, and lap-by-lap Monte Carlo simulations—achieving a 38.9% prediction accuracy for the Australian GP.',
+      'Modeling the 2026 ground-effect era using XGBoost, Bayesian Inference, and lap-by-lap Monte Carlo simulations—achieving a 38.9% prediction accuracy for the Australian GP.',
     tag: 'AI/ML',
     slug: 'f1-predictor',
     linkedinUrl: null,
@@ -45,7 +45,7 @@ const CASE_STUDIES: CaseStudyEntry[] = [
     id: '3',
     title: 'Designing for Emotion: The Luminary System',
     description:
-      'How a mood-adaptive music player transformed retention by 340% through real-time facial micro-expression analysis via TensorFlow.js.',
+      'How a mood-adaptive music player transformed engagement by 340% through real-time facial micro-expression analysis via TensorFlow.js.',
     tag: 'UX Design',
     slug: 'luminary',
     linkedinUrl: null,
