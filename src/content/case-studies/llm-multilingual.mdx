@@ -1,6 +1,6 @@
 ---
-title: "The Multilingual Deficit in LLMs"
-description: "A deep dive into why Large Language Models systematically disadvantage non-English languages through tokenization and architectural bias."
+title: "The Multilingual Deficit in Large Language Models"
+description: "A deep dive into why Large Language Models systematically disadvantage non-English languages through tokenization, embeddings, and architectural bias."
 thumbnail: "/images/projects/llm-research.jpg"
 date: "2026-04-10"
 tags: ["NLP", "Tokenization", "Applied Data Science", "Research"]
@@ -8,44 +8,54 @@ slug: "llm-multilingual"
 ---
 
 ## The Abstract
-
-Large Language Models systematically disadvantage non-English languages at every level. A Kannada sentence requires **3–5× more tokens** than its English equivalent, costs proportionally more to process, and produces lower-quality outputs. This research traces the cascade from byte-level tokenization through attention mechanisms to final generation.
-
-## Key Research Findings
-
-### 1. The Fertility Crisis
-Token fertility is the average number of tokens per word. My research quantified that equivalent semantic content for Indic languages costs up to 15x more in positional encoding slots.
-
-| Language | GPT-4 Fertility vs English | GPT-4o Reduction |
-| :--- | :--- | :--- |
-| **Kannada** | ~3–4× | 79% Improvement |
-| **Malayalam**| ~4–5× | 79% Improvement |
-| **Hindi** | ~2–3× | 64% Improvement |
-
-### 2. The Economic Inequity
-The "Script Tax" means non-English speakers obtain worse results for higher costs. At scale, a Hindi-based service pays roughly **$300,000 more annually** than an identical English service due to token inefficiency.
-
-### 3. The Context Window Shrinkage
-A 128K-token context window effectively shrinks to **25,000–42,000 tokens** of usable content for Hindi or Arabic, severely limiting RAG (Retrieval-Augmented Generation) applications for world languages.
+Large Language Models systematically disadvantage non-English languages at every level of their architecture. A Kannada sentence requires **3–5× more tokens** than its English equivalent, costs proportionally more to process, and produces lower-quality outputs. This research traces the cascade from byte-level tokenization through attention mechanisms to final generation, comparing how GPT-4o, Gemini, Claude, and Llama handle the world's most complex scripts.
 
 ---
 
-## Technical Analysis: Byte-Level Tokenization
+## 1. Byte-Level Tokenization: The "Script Tax"
+Modern LLMs use byte-level Byte Pair Encoding (BPE), operating on raw UTF-8 bytes. 
+- English characters = **1 byte**
+- Kannada, Hindi, Tamil characters = **3 bytes**
 
-I analyzed how **Byte Pair Encoding (BPE)** creates a fundamental tax. Since UTF-8 characters for Kannada consume 3 bytes while English consumes 1, the BPE algorithm needs more merges to constitute a single character. 
+The BPE algorithm requires significantly more "merges" to constitute a single non-Latin character. Because English dominates training corpora (95% in Llama 3), English merges are learned first. Non-Latin byte sequences recur with lower probability, so many never get merged, leaving individual bytes as tokens—effectively destroying semantic integrity.
 
-Because English dominates training data (95% in Llama 3), English byte-pair merges are learned first. Non-Latin byte sequences often never get merged into complete characters, leaving individual bytes as tokens—destroying semantic integrity.
+### The Fertility Crisis (Token Count Comparison)
+Token fertility—the average number of tokens per word—is the most measurable manifestation of this inequality.
 
-## The "Gemini Moment"
-
-This research was sparked by a real-world test: Asking Gemini to write a Kannada anchoring speech for a cultural festival (Sankranti). Despite Kannada representing only **0.019% of common crawl data**, the model produced culturally nuanced prose, leading me to investigate the cross-lingual embedding spaces that enable this high performance against massive data odds.
+| Language | GPT-4 Tokens (Control) | GPT-4o Tokens | % Reduction | Fertility vs English |
+| :--- | :---: | :---: | :---: | :---: |
+| **Malayalam** | 4,775 | 957 | 79% | ~4–5× |
+| **Kannada** | 3,681 | 766 | 79% | ~3–4× |
+| **Telugu** | 4,097 | 893 | 77% | ~3–4× |
+| **Hindi** | 2,090 | 655 | 64% | ~2–3× |
+| **Odia** | 6,074 | 2,432 | 60% | ~5–6× |
 
 ---
 
-## Solutions Investigated
+## 2. The Economic and Performance Cascade
+The "fertility crisis" isn't just a technical quirk; it has severe economic and architectural consequences:
 
-- **MAGNET (NeurIPS 2024)**: Adaptive tokenization.
-- **Vocabulary Expansion**: Parameter freezing with subword initialization.
-- **Sovereign Models**: The rise of IndicTrans2 and Sarvam-1.
+- **The Economic Tax**: Research shows that a company serving Hindi users pays an estimated **$300,000+ more annually** than an identical English service at the same scale.
+- **Context Window Shrinkage**: A 128K token context window effectively shrinks to **25,000–42,000 tokens** for Hindi or Arabic, making long-document RAG (Retrieval-Augmented Generation) nearly impossible.
+- **Attention Overload**: High token fertility consumes positional encoding slots disproportionately, leading to quadratically higher attention costs for the same semantic meaning.
 
-[Download Full Research PDF](/documents/How_LLMs_Process_Non_English_Languages.pdf)
+---
+
+## 3. The "Gemini Moment": A Case Study for Kannada
+This research was sparked by a real-world test for KKNC (Kannada Koota Northern California). I used Gemini to anchor a **Sankranti** cultural celebration. 
+
+Despite Kannada representing only **0.019% of Common Crawl data**, and its script permitting 18,511 distinct character combinations, the model produced culturally nuanced, grammatically sound prose—incorporating traditional proverbs like *"Ellu-Bella"* with perfect emotive cadence. This led to an investigation intohow cross-lingual embedding spaces allow "shared vectors" to bridge the data gap from English to low-resource languages.
+
+---
+
+## 4. Frontier Solutions
+The gap is real, but closing. I investigated three primary engineering solutions:
+1. **MAGNET (NeurIPS 2024)**: Adaptive gradient-based tokenization that dynamically segments byte sequences.
+2. **IndicSuperTokenizer**: Optimized pre-tokenization that delivers a 44% throughput improvement over standard Llama-style tokenizers.
+3. **Sovereign Models**: The rise of IndicTrans2 (AI4Bharat) and Sarvam-1, which are natively optimized for the morphologically rich scripts of the Indian subcontinent.
+
+---
+
+### Resources
+- [Download Full Research PDF](/documents/How_LLMs_Process_Non_English_Languages.pdf)
+- **Primary References**: Ahia et al. (EMNLP 2023), Petrov et al. (NeurIPS 2023), AI4Bharat (NAACL 2025).

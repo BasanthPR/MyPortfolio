@@ -1,10 +1,10 @@
 [
   {
     "id": "project-01",
-    "title": "F1 Prediction System",
-    "description": "An end-to-end ML pipeline predicting Formula 1 race winners using historic telemetry and Monte Carlo simulations.",
-    "longDescription": "Built a predictive ecosystem combining XGBoost, Bayesian Inference, and Monte Carlo lap-by-lap physical simulations to predict race outcomes under the new 2026 ground-effect regulations.",
-    "tech": ["Python", "XGBoost", "FastF1", "Monte Carlo"],
+    "title": "F1 Prediction Engine",
+    "description": "A triple-model ensemble predicting the 2026 Formula 1 era using XGBoost, Monte Carlo, and Bayesian belief updating.",
+    "longDescription": "Built a predictive ecosystem combining XGBoost pattern recognition with a lap-by-lap physical simulation engine (Monte Carlo) to predict race outcomes under the massive 2026 regulatory reset. Engineered 26+ features including active aero flags and energy management split ratios.",
+    "tech": ["Python", "XGBoost", "Monte Carlo", "Bayesian"],
     "thumbnail": "/images/projects/f1-prediction.jpg",
     "video": null,
     "accent": "#C1121F",
@@ -17,9 +17,9 @@
   },
   {
     "id": "project-02",
-    "title": "LLM Multilingual Research",
-    "description": "A deep dive into the structural inequality of Large Language Models for non-English scripts and tokenization cost analysis.",
-    "longDescription": "Investigated the systematic disadvantage non-English languages face in LLM architectures, focusing on token fertility crises and economic taxes on low-resource scripts.",
+    "title": "LLM Multilingual Deficit",
+    "description": "Researching the structural 'Token Tax' and fertility crisis that disadvantages non-English languages in global LLMs.",
+    "longDescription": "Quantified the systematic disadvantage non-English scripts face in BPE-based tokenizers. Found that Kannada/Hindi require 3-5x more tokens for identical semantic content, inflating costs and shrinking effective context windows by ~70%.",
     "tech": ["NLP", "Tokenization", "LLMs", "Research"],
     "thumbnail": "/images/projects/llm-research.jpg",
     "video": null,
@@ -34,8 +34,8 @@
   {
     "id": "project-03",
     "title": "Cartograph",
-    "description": "An interactive data visualization platform that transforms raw datasets into cinematic 3D maps.",
-    "longDescription": "Powered by Three.js and D3.js, Cartograph turns complex CSVs into explorable 3D terrain maps with smooth camera-fly transitions and narrative overlays.",
+    "description": "An interactive data visualization platform that transforms raw datasets into cinematic 3D narratives.",
+    "longDescription": "Applying Three.js and D3.js to turn complex CSVs into explorable 3D terrain maps with smooth camera-fly transitions and narrative overlays.",
     "tech": ["React", "Three.js", "D3.js", "WebGL"],
     "thumbnail": "/images/projects/cartograph.jpg",
     "video": "/videos/projects/cartograph.mp4",
