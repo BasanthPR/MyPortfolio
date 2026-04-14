@@ -258,8 +258,7 @@ export default function PhysicsScene() {
       {nodes.map((cfg, i) => (
         <DataNode key={i} cfg={cfg} index={i} />
       ))}
-      {/* Our funny attention seeker graphic */}
-      <SeekerNode />
+      {/* <SeekerNode /> */}
       <PhysicsSystem nodes={nodes} />
     </Physics>
   );
