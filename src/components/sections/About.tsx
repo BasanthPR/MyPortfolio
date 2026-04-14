@@ -14,9 +14,9 @@ import siteData from '@/data/site.json';
 import socialData from '@/data/social.json';
 
 const SKILLS = [
-  'Python', 'PyTorch', 'TensorFlow', 'Next.js', 'React',
-  'WebGL', 'Framer Motion', 'Design Systems', 'AWS', 'SQL',
-  'Figma', 'TypeScript',
+  'Python', 'C++', 'Go', 'PyTorch', 'Apache Kafka',
+  'AWS', 'Kubernetes', 'Next.js', 'SQL', 'Apache Spark',
+  'LangGraph', 'Azure', 'TypeScript', 'Terraform',
 ];
 
 const SOCIAL_LINKS = [
