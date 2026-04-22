@@ -1,117 +1,331 @@
 ---
 title: "F1 Race Winner Prediction System"
-description: "Predicting the unpredictable: An ensemble ML approach to Formula 1 race outcomes in the 2026 ground-effect era."
+description: "Predicting the unpredictable: a triple-model ensemble approach to Formula 1 race outcomes in the 2026 ground-effect era."
 thumbnail: "/images/projects/f1-prediction.jpg"
 date: "2026-03-29"
-tags: ["XGBoost", "Monte Carlo", "Bayesian", "Python"]
+tags: ["XGBoost", "Monte Carlo", "Bayesian", "Python", "FastF1"]
 slug: "f1-predictor"
 ---
 
-## The Abstract
-Predicting a Formula 1 race winner is one of the most complex problems in sports analytics. Unlike high-frequency sports, F1 offers a tiny sample size (22-24 races per year) with enormous confounding variables: atmospheric conditions, tire degradation, safety car probability, and mechanical reliability. 
+## The Problem
 
-With the massive **2026 Regulatory Reset**, historical data became partially obsolete. This system was designed to bridge that gap using a triple-model ensemble that balances historical patterns with real-time physical simulations.
+Predicting an F1 race winner is genuinely one of the hardest problems in sports analytics. Most prediction problems have hundreds or thousands of observations. F1 gives you 22 races per year, 20 drivers, and a sport where the car does a significant chunk of the work. Now compound that with 2026 being the biggest regulatory reset in the sport's history — new aerodynamic philosophy, narrower tires, a 50/50 ICE-to-electric power split, active aero replacing DRS — and you have a prediction problem where your entire historical training set is partially obsolete.
 
----
-
-## 🏗️ Technical Architecture: The Triple-Model Ensemble
-
-To handle the "known unknowns" of the 2026 regulations, I built an ensemble system that combines three fundamentally different worldviews:
-
-### 1. XGBoost Classifier (The Pattern Matcher)
-Gradient boosting on 12 years of hybrid-era data (2014-2025). It identifies historical signatures of dominance. 
-- **Handling Imbalance**: Uses `scale_pos_weight` to penalize misclassifying a winner 20x more heavily than a loser.
-- **Key Feature**: `constructor_strength` — a rolling-window proxy for car performance.
-
-### 2. Monte Carlo Simulator (The Physics Engine)
-Models the race lap-by-lap, 10,000 times. It rolls "luck" for every lap.
-- **Dynamic Variable**: Tire degradation curves calibrated during Friday practice.
-- **Safety Car**: 1% per-lap trigger probability (tuned to circuit-specific history).
-
-### 3. Bayesian Inference (The Belief Updater)
-Starts with "Priors" based on historical driver dominance and updates with "Evidence" from the current qualifying weekend.
-- **Uncertainty Quantification**: Explicitly models the variance of new-regulation year transitions.
+The typical academic answer would be "more data." I didn't have that option. So I built a system that combines three fundamentally different modeling philosophies into an ensemble, letting each model compensate for the blind spots of the others.
 
 ---
 
-## 🏗️ Feature Engineering: The Tiered Architecture
-I engineered **26+ features** across four distinct tiers to capture the underlying dynamics of F1 performance.
+## System Architecture
+
+The core idea is that no single model can be trusted in novel conditions. The ensemble was designed so that when one model's assumptions break down, the others can absorb the slack.
+
+<div class="arch-diagram">
+<svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
+  <defs>
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C1121F;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#C1121F;stop-opacity:0.05"/>
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D4FF;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#00D4FF;stop-opacity:0.05"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4A843;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#D4A843;stop-opacity:0.05"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="rgba(242,237,232,0.25)"/>
+    </marker>
+  </defs>
+
+  <!-- Data Sources -->
+  <rect x="20" y="30" width="180" height="44" rx="4" fill="rgba(242,237,232,0.03)" stroke="rgba(242,237,232,0.12)" stroke-width="1"/>
+  <text x="110" y="50" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(242,237,232,0.5)" letter-spacing="1">JOLPICA-F1 API</text>
+  <text x="110" y="64" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.25)">1,200 race results · 2014–2025</text>
+
+  <rect x="220" y="30" width="180" height="44" rx="4" fill="rgba(242,237,232,0.03)" stroke="rgba(242,237,232,0.12)" stroke-width="1"/>
+  <text x="310" y="50" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(242,237,232,0.5)" letter-spacing="1">OPENF1 API</text>
+  <text x="310" y="64" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.25)">real-time telemetry · lap data</text>
+
+  <rect x="420" y="30" width="180" height="44" rx="4" fill="rgba(242,237,232,0.03)" stroke="rgba(242,237,232,0.12)" stroke-width="1"/>
+  <text x="510" y="50" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(242,237,232,0.5)" letter-spacing="1">FASTF1</text>
+  <text x="510" y="64" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.25)">tire · sector · weather · quali</text>
+
+  <!-- Feature Engineering -->
+  <line x1="400" y1="74" x2="400" y2="110" stroke="rgba(242,237,232,0.15)" stroke-width="1" marker-end="url(#arrow)"/>
+  <rect x="160" y="110" width="480" height="55" rx="4" fill="rgba(242,237,232,0.02)" stroke="rgba(242,237,232,0.1)" stroke-width="1"/>
+  <text x="400" y="132" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(242,237,232,0.4)" letter-spacing="2">FEATURE ENGINEERING PIPELINE</text>
+  <text x="400" y="152" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.22)">26 features · 4 tiers · GroupKFold validation · regulation-era encoding</text>
+
+  <!-- Three Models -->
+  <line x1="260" y1="165" x2="180" y2="210" stroke="rgba(242,237,232,0.12)" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="400" y1="165" x2="400" y2="210" stroke="rgba(242,237,232,0.12)" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="540" y1="165" x2="620" y2="210" stroke="rgba(242,237,232,0.12)" stroke-width="1" marker-end="url(#arrow)"/>
+
+  <!-- XGBoost -->
+  <rect x="60" y="210" width="200" height="110" rx="6" fill="url(#redGrad)" stroke="rgba(193,18,31,0.35)" stroke-width="1"/>
+  <text x="160" y="232" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(193,18,31,0.9)" letter-spacing="2">XGBOOST</text>
+  <text x="160" y="248" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(242,237,232,0.35)">Pattern Matcher</text>
+  <text x="160" y="268" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.22)">12 years hybrid-era data</text>
+  <text x="160" y="283" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.22)">scale_pos_weight · 20× penalty</text>
+  <text x="160" y="298" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.22)">rolling constructor_strength</text>
+  <text x="160" y="313" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(193,18,31,0.7)">weight: 0.35</text>
+
+  <!-- Monte Carlo -->
+  <rect x="300" y="210" width="200" height="110" rx="6" fill="url(#blueGrad)" stroke="rgba(0,212,255,0.3)" stroke-width="1"/>
+  <text x="400" y="232" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(0,212,255,0.9)" letter-spacing="2">MONTE CARLO</text>
+  <text x="400" y="248" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(242,237,232,0.35)">Physics Engine</text>
+  <text x="400" y="268" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.22)">10,000 race simulations</text>
+  <text x="400" y="283" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.22)">tire deg · fuel burn · SC model</text>
+  <text x="400" y="298" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.22)">lap-by-lap Normal sampling</text>
+  <text x="400" y="313" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(0,212,255,0.6)">weight: 0.35</text>
+
+  <!-- Bayesian -->
+  <rect x="540" y="210" width="200" height="110" rx="6" fill="url(#goldGrad)" stroke="rgba(212,168,67,0.3)" stroke-width="1"/>
+  <text x="640" y="232" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(212,168,67,0.9)" letter-spacing="2">BAYESIAN</text>
+  <text x="640" y="248" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(242,237,232,0.35)">Belief Updater</text>
+  <text x="640" y="268" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.22)">Beta-Binomial conjugacy</text>
+  <text x="640" y="283" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.22)">prior → likelihood → posterior</text>
+  <text x="640" y="298" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.22)">explicit uncertainty bounds</text>
+  <text x="640" y="313" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(212,168,67,0.7)">weight: 0.30</text>
+
+  <!-- Ensemble -->
+  <line x1="160" y1="320" x2="340" y2="370" stroke="rgba(242,237,232,0.12)" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="400" y1="320" x2="400" y2="370" stroke="rgba(242,237,232,0.12)" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="640" y1="320" x2="460" y2="370" stroke="rgba(242,237,232,0.12)" stroke-width="1" marker-end="url(#arrow)"/>
+  <rect x="220" y="370" width="360" height="80" rx="6" fill="rgba(242,237,232,0.03)" stroke="rgba(242,237,232,0.15)" stroke-width="1"/>
+  <text x="400" y="396" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(242,237,232,0.6)" letter-spacing="2">WEIGHTED ENSEMBLE</text>
+  <text x="400" y="414" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.3)">P_final = 0.35·XGB + 0.35·MC + 0.30·Bayes</text>
+  <text x="400" y="433" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.22)">ranked win probabilities · confidence intervals · risk flags</text>
+
+  <!-- Labels -->
+  <text x="400" y="22" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.18)" letter-spacing="3">DATA SOURCES</text>
+  <text x="400" y="200" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.18)" letter-spacing="3">MODEL LAYER</text>
+  <text x="400" y="362" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.18)" letter-spacing="3">OUTPUT LAYER</text>
+</svg>
+</div>
+
+---
+
+## The Data Foundation
+
+**1,200 historical race results** spanning 2014–2025. The decision to start at 2014 and not earlier was deliberate — pre-hybrid era cars operated on fundamentally different aerodynamic and powertrain physics. Including them would add noise, not signal. The hybrid era (2014 onward) represents a continuous architectural lineage that the 2026 regulations actually descend from, making it the relevant historical window.
+
+Each result was enriched with:
+- Qualifying results (to create the `grid_position` and `qualifying_pace_delta` features)
+- Circuit metadata (track type, historical SC rate, overtaking difficulty index)
+- Weather conditions (temperature gradients matter enormously for tire behavior)
+- Team-level points rolling averages (proxy for car performance across regulation eras)
+
+---
+
+## Feature Engineering: Four Tiers
+
+The 26 features split cleanly across four tiers of predictive power.
+
+**Tier 1 — The Load-Bearers**
+
+`grid_position` is the single most predictive feature. At Albert Park, the pole sitter historically wins **57% of races**. The model captures the nonlinear decay — the gap from P1 to P2 is worth far more than P10 to P11. That's a real physical phenomenon, not a data artifact.
+
+`constructor_strength` is a rolling-window points average that acts as a proxy for car performance. F1 is fundamentally a constructor's championship: the driver extracts the last 10–15%, but the car sets the ceiling. This feature separated what the machine was doing from what the human was contributing.
+
+`qualifying_pace_delta` encodes the actual time gap to pole. Russell's 1:18.518 at Albert Park with Antonelli 0.3s back isn't just positional information — it quantifies the performance gradient.
+
+**Tier 3 — The 2026 Wildcards**
+
+`is_new_regulation_year` is a binary flag that fires for year-one of any major rule change (2009, 2014, 2017, 2022, 2026). The historical signature is consistent: DNF rates climb 50–100%, the competitive hierarchy reshuffles, and whoever "gets it right" early tends to dominate for years.
+
+`active_aero_era` and `energy_management_era` are 2026-specific flags that function primarily as uncertainty multipliers — they tell the model "we're in genuinely uncharted territory, widen the confidence intervals." There's no training data for these because they didn't exist before this season.
 
 ![Feature Importance](/images/projects/f1/feature_importance.png)
-*Visualizing the relative weight of historical vs. 2026-specific features.*
+
+*grid_position, constructor_strength, and qualifying_pace_delta carry most of the predictive weight. The 2026-specific features (active_aero_era, energy_management_era) function mainly as variance inflators.*
 
 ---
 
-## 🏎️ Race Case Study 1: Australian GP (The Season Opener)
+## Model 1: XGBoost — The Pattern Matcher
 
-The first real-world test of the 2026 power units. The ensemble faced high reliability risk and unknown tire behavior.
+XGBoost is a committee of sequential decision trees where each tree corrects the errors of the previous one. It's well-suited for F1 because the relationships in the data are deeply nonlinear — a 0.4s qualifying gap doesn't linearly map to a 40% win advantage; the physics of Albert Park's limited overtaking opportunities makes it closer to a 60% advantage at that circuit.
 
-### The Win Probability Heatmap
+The class imbalance is severe: exactly one winner per 20–22 drivers means the naive positive rate is around 5%. Without correction, the model would learn "predict no winner for everyone" and be 95% accurate but completely useless. The solution: `scale_pos_weight` penalizes misclassifying a winner 20× more heavily than a non-winner during training. Combined with GroupKFold cross-validation (where groups are `race_id`) to prevent data leakage across races, the model learns genuine winner signatures rather than overfitting to temporal artifacts.
+
+---
+
+## Model 2: Monte Carlo — The Physics Engine
+
+Instead of pattern-matching on history, the Monte Carlo simulator models the actual physical process of a race lap-by-lap. 10,000 times. Each simulation is a parallel universe.
+
+For every lap in every simulation, the engine:
+
+1. **Samples a lap time** from `Normal(mu_driver, sigma)` — mean based on qualifying pace plus a race-pace adjustment, standard deviation representing consistency
+2. **Applies tire degradation** — calibrated to the 2026 narrower compound's measured "cliff" behavior after ~18 laps on softs
+3. **Burns fuel** — cars start at ~110kg and shed roughly 0.03s per lap as they lighten
+4. **Rolls for safety car** — 1% per-lap probability at Albert Park, calibrated to the historical ~60% per-race SC rate
+5. **Rolls for DNF** — baseline 5%, doubled for year-one regulation teams running unproven power units
+
+```python
+for sim in range(N_SIMULATIONS):
+    positions = initial_grid.copy()
+    for lap in range(N_LAPS):
+        for driver in positions:
+            lap_time = np.random.normal(
+                driver.mu + tyre_degradation(driver.tyre_age),
+                driver.sigma
+            ) - fuel_delta(lap)
+            
+            if np.random.random() < SC_PROBABILITY:
+                compress_field(positions)  # SC negates all gaps
+                
+            if np.random.random() < driver.dnf_risk:
+                positions.remove(driver)
+```
+
+When the physics says Russell starts with a 0.4s per-lap advantage over 58 laps — the Monte Carlo engine gives him a 75.8% win probability. That's not optimism; it's the math of limited overtaking at a circuit that historically favors the front row.
+
+---
+
+## Model 3: Bayesian Inference — The Belief Updater
+
+Bayesian inference approaches the problem differently. It starts with a **prior** (what you believe before seeing evidence) and updates it with **likelihood** (what the qualifying results suggest) to produce a **posterior** (your updated belief).
+
+The mathematical framework uses Beta-Binomial conjugacy — the Beta distribution is the conjugate prior for the Binomial, which keeps the math tractable without MCMC sampling. A driver's prior is constructed from their historical win rate and team-level performance. The update incorporates qualifying position, pace delta, and — critically — a `new_regulation_year_variance_multiplier` that widens posterior distributions for everyone when the cars are new.
+
+This is why the Bayesian model gave Hamilton 6.6% despite starting P7 at Albert Park. Seven world titles, two regulation-change dominances (2014, 2017). The prior for "Hamilton in a new-reg year" is structurally higher than his grid position would suggest. The Bayesian model is encoding what pure data can't: the difference between uncertainty and impossibility.
+
+---
+
+## Race Case Study 1: Australian GP
+
+The season opener. First real-world test of the 2026 power units. The ensemble faced maximum reliability risk and zero race-distance energy management data.
+
+**Qualifying Grid:**
+- P1 George Russell (Mercedes) — 1:18.518
+- P2 Kimi Antonelli (Mercedes) — +0.3s
+- P3 Isack Hadjar (Red Bull)
+- P7 Lewis Hamilton (Ferrari)
+- P20 Max Verstappen (Red Bull — crashed in Q1)
+- DNS Carlos Sainz (Williams — ERS failure in qualifying)
+
+**Ensemble Result:**
+
+| Driver | XGBoost | Monte Carlo | Bayesian | Ensemble |
+|:---|:---:|:---:|:---:|:---:|
+| **Russell** | 27.4% | 75.8% | 9.3% | **38.9%** |
+| **Hadjar** | 35.2% | 4.8% | 6.1% | **15.8%** |
+| **Antonelli** | 18.9% | 22.4% | 6.7% | **15.6%** |
+| Leclerc | — | — | 7.1% | 3.1% |
+| Verstappen | 2.2% | 0.0% | 6.5% | 2.7% |
+
 ![Australian GP Win Probabilities](/images/projects/f1/win_probabilities.png)
 
-| Driver | Ensemble Win % | Note |
-| :--- | :---: | :--- |
-| **Russell** (Mercedes) | **38.9%** | Dominant pole; structural advantage. |
-| **Hadjar** (Red Bull) | **15.8%** | Beneficiary of Red Bull's historical strength. |
-| **Antonelli** (Mercedes) | **15.6%** | High "constructor carryover" effect. |
+The model disagreements are more interesting than the final numbers. XGBoost gave Hadjar **35.2%** — higher than Russell — because it's pattern-matching Red Bull's 2022–2024 dominance onto a P3 grid position. The model knows Red Bull P3 historically wins. But Monte Carlo only gives Hadjar **4.8%** because the physics of a 0.4s qualifying gap over 58 laps with limited overtaking is brutal. The ensemble splits the difference.
 
-### Physics vs. Pattern
-While XGBoost loved Hadjar (35.2%) based on previous Red Bull dominance, the Monte Carlo physics engine gave Russell a massive **75.8%** win probability because his 0.4s qualifying gap is historically insurmountable at Albert Park without a safety car.
+Verstappen's 2.7% final probability — with Monte Carlo saying 0.0% — came entirely from the Bayesian model's refusal to assign a four-time champion zero probability from any grid position. That's intellectually honest.
+
+![Grid Position vs Win Probability](/images/projects/f1/grid_vs_probability.png)
 
 ---
 
-## 🏎️ Race Case Study 2: Japanese GP (The Masterclass at Suzuka)
+## Race Case Study 2: Japanese GP
 
-Suzuka is a "driver's track" — its high-speed flow punishes inconsistent lap times. The 2026 Japanese GP prediction focused on **Verstappen's recovery** from a shock P11 start and the **Mercedes dual-threat**.
+Suzuka is a different kind of challenge. The high-speed sequence of Esses, Degner, Spoon, and 130R punishes lap-to-lap inconsistency. It's a "driver's track" in the truest sense, and the 2026 active aero system added a new variable: wing adjustment mid-corner at Spoon introduced unpredictable handling characteristics during initial race weekend sessions.
 
-### Win Probability Distribution
-![Japanese GP Win Probability](/images/projects/f1/plot_01_win_probability.png)
+**Qualifying Grid:**
+- P1 Kimi Antonelli (Mercedes) — first pole of his F1 career
+- P2 George Russell (Mercedes)
+- P3 Oscar Piastri (McLaren)
+- P14 Max Verstappen (Red Bull — ERS mapping error in Q2)
 
-### The Verstappen Recovery Analysis
-Max Verstappen qualified P11 due to an ERS mapping error. Could he win from the midfield?
-![Verstappen Recovery](/images/projects/f1/plot_09_verstappen_recovery.png)
-- **Probability**: 0.3% (Model consensus was nearly unanimous: winning from P11 at Suzuka requires multiple safety cars).
-- **SC Sensitivity**: Late-race safety cars (L41-53) increased his win probability by 12x, but even then, it capped at ~2%.
+By the Japanese GP, Mercedes' energy management advantage was confirmed over race distance from Australia. The Bayesian model updated heavily toward Mercedes dominance. The result:
 
----
+| Driver | Ensemble Win % |
+|:---|:---:|
+| **Antonelli** | **55.7%** |
+| **Russell** | **28.8%** |
+| Piastri | 5.1% |
+| Leclerc | 3.8% |
+| Verstappen | 0.3% |
 
-## 🧪 Simulation Insights
+Mercedes 1–2 probability: **~84.5%**.
 
-### Tire Degradation Curves
-The 2026 narrower tires showed significant "cliff" behavior after 18 laps on the Soft compound.
-![Tire Degradation](/images/projects/f1/plot_04_tyre_degradation_curves.png)
+![Japanese GP Win Probability Distribution](/images/projects/f1/plot_01_win_probability.png)
 
-### Model Agreement Hierarchy
-Where do the worldviews align?
-![Model Agreement](/images/projects/f1/plot_07_model_agreement.png)
-- **High Confidence**: Mercedes P1/P2 dominance was predicted by all 5 model variations (Bayesian, MC, XGBoost, Tyre-Adj).
-- **High Uncertainty**: The fight for P3 (McLaren vs. Ferrari) showed massive variance between XGBoost (historical) and Monte Carlo (physics lap-time based).
+**The Verstappen Recovery Problem**
 
----
+P14 at Suzuka is a different problem from P20 at Albert Park. The Suzuka circuit has even fewer natural overtaking opportunities — DRS zones are shorter, and the track's flowing nature means pace differentials matter less than positioning. The model's verdict was clear:
 
-## 🔍 Engineering Insights & Result Analysis
+![Verstappen Recovery Analysis](/images/projects/f1/plot_09_verstappen_recovery.png)
 
-### 1. Safety Car Wildcards
-The 2026 season showed a **~60% SC rate**. The Monte Carlo engine revealed that an early safety car (Lap 1-15) disproportionately favors drivers starting P10-P20, as it allows for a "cheap" pit stop and field compression.
-
-### 2. Bayesian Belief Updating
-The Bayesian model was the most cautious, hedging bets on Hamilton (P7) due to his historical performance in regulation-change years (2014, 2017).
-![Bayesian Posteriors](/images/projects/f1/plot_08_bayesian_posteriors.png)
-
-### 3. The 2026 Transition
-The 50/50 ICE-to-Electric split introduced a new failure mode: **MGU-K Harvesting Fatigue**. Models tuned to "Reliability Risk" successfully predicted the high DNF rate for teams running 1st-generation 2026 batteries.
+Win probability: **0.3%** across the ensemble. The Monte Carlo physics engine found that even with a late-race safety car on laps 41–53, maximum win probability reached approximately 2%. Starting P14 at Suzuka requires the field in front of you to both pit and have problems. With Mercedes in dominant form, the only realistic outcome was a points finish, not a win.
 
 ---
 
-### Tech Stack
-- **Languages**: Python (NumPy, SciPy, Pandas)
-- **ML Engine**: XGBoost, Scikit-learn, PyMC
-- **Data Pipelines**: FastF1, OpenF1 API
-- **Visualization**: Matplotlib, Seaborn
+## Tire Degradation: The 2026 Cliff
+
+One of the most important engineering insights from this project came from calibrating the tire degradation curves for the 2026 compounds.
+
+The narrower 2026 tires showed a pronounced "cliff" — a non-linear degradation spike — after approximately 18 laps on the soft compound. This isn't visible in the average degradation rate; it's a threshold behavior.
+
+![Tire Degradation Curves](/images/projects/f1/plot_04_tyre_degradation_curves.png)
+
+The practical implication: teams that planned their strategies around the average degradation rate (as most historical models do) underestimated the real lap-time penalty in laps 18–24 on softs. The Monte Carlo engine encoded this as a piecewise degradation function rather than a linear one, which substantially changed optimal pit stop windows.
 
 ---
 
-## 📂 Technical Resources
-Download the full technical documentation for this predictor:
-- [**2026 Japanese GP Prediction Report (PDF)**](/docs/2026_Japanese_GP_Prediction_Report.pdf)
-- [**2026 Australian GP Prediction Report (PDF)**](/docs/F1_2026_AusGP_Prediction_Report.pdf)
+## Where The Models Disagreed
+
+The most honest output of any ensemble is its disagreements. Where models built on fundamentally different assumptions converge, the prediction is reliable. Where they diverge, that's where the genuine uncertainty lives.
+
+![Model Agreement Chart](/images/projects/f1/plot_07_model_agreement.png)
+
+**High confidence zones:**
+- Mercedes P1/P2 dominance: all model variants agreed
+- Backmarker DNF rates: Monte Carlo and XGBoost aligned on 40–45% for new-regulation teams
+
+**High uncertainty zones:**
+- McLaren vs Ferrari for P3: XGBoost (historical) and Monte Carlo (physics) disagreed significantly
+- Hamilton's finishing position: Bayesian's strong prior vs Monte Carlo's lap-time math
+
+![Bayesian Posterior Distributions](/images/projects/f1/plot_08_bayesian_posteriors.png)
+
+![Constructor vs Driver Decomposition](/images/projects/f1/plot_03_constructor_vs_driver_decomposition.png)
+
+---
+
+## The Safety Car Problem
+
+With a ~60% per-race safety car probability at Albert Park, the Monte Carlo engine treated SC deployment not as an edge case but as the base case. An early SC (laps 1–15) has a disproportionate effect on the field because it allows cheap pit stops and compresses gaps that took 10 laps to build. The analysis:
+
+![Safety Car Impact](/images/projects/f1/plot_06_safety_car_impact.png)
+
+A lap 1–15 SC increased Verstappen's win probability from 0.0% to approximately 0.8% in simulation. A lap 41–53 SC (the most common trigger window at Albert Park) increased it to ~2%. Even with maximum favorable SC timing, winning from P20 at Albert Park in a Red Bull that's clearly behind Mercedes' 2026 package is close to statistically impossible — not logically impossible, but operationally negligible.
+
+---
+
+## What This Taught Me
+
+The 38.9% accuracy claim needs context. In a sport where the "naive" prediction (always predict the pole sitter) would give you roughly 40–50% accuracy at certain circuits, 38.9% ensemble accuracy sounds underwhelming. But the ensemble's value isn't the headline accuracy number — it's the **calibration** of uncertainty. The Bayesian model's explicit uncertainty quantification, combined with Monte Carlo's physics-based confidence intervals, gives you prediction ranges that are actionable.
+
+When the model says Russell wins 38.9% and Hadjar wins 15.8%, that's not saying "bet your house on Russell." It's saying "in the space of all physically plausible races this weekend, Mercedes has a structural advantage, and the Red Bull threat is real but tempered by physics." That's a different and more useful output than a point estimate.
+
+The 2026 season also validated the ensemble's most important design choice: no single model should dominate. In a new-regulation year, historical data (XGBoost's domain) is partially obsolete, physics-based simulation (Monte Carlo) can't model energy management it's never seen, and Bayesian inference is only as good as the priors you start with. The ensemble's answer to epistemic uncertainty was to average across philosophies — which is, at some level, what experienced F1 analysts have been doing manually for decades.
+
+---
+
+## Tech Stack
+
+- **Languages:** Python 3.11 (NumPy, SciPy, Pandas)
+- **ML Engine:** XGBoost 2.0, Scikit-learn, PyMC
+- **Data Pipelines:** FastF1, OpenF1 API, Jolpica-F1 API
+- **Visualization:** Matplotlib, Seaborn
+- **Validation:** GroupKFold (race-ID grouped), calibration curves
+
+---
+
+## Technical Reports
+
+Full methodology documentation and prediction outputs for both races:
+
+- [2026 Japanese GP Prediction Report (PDF)](/docs/2026_Japanese_GP_Prediction_Report.pdf)
+- [2026 Australian GP Prediction Report (PDF)](/docs/F1_2026_AusGP_Prediction_Report.pdf)

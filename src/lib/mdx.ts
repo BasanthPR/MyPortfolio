@@ -1,6 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import rehypeRaw from 'rehype-raw';
+import rehypeStringify from 'rehype-stringify';
 
 const CONTENT_DIR = path.join(process.cwd(), 'src/content/case-studies');
 
@@ -11,6 +16,16 @@ export interface CaseStudyMeta {
   date: string;
   tags: string[];
   slug: string;
+}
+
+async function markdownToHtml(markdown: string): Promise<string> {
+  const result = await unified()
+    .use(remarkParse)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeRaw)
+    .use(rehypeStringify)
+    .process(markdown);
+  return String(result);
 }
 
 export async function getCaseStudySlugs(): Promise<string[]> {
@@ -26,7 +41,8 @@ export async function getCaseStudyBySlug(slug: string) {
   if (!fs.existsSync(filePath)) return null;
   const raw = fs.readFileSync(filePath, 'utf-8');
   const { data, content } = matter(raw);
-  return { meta: data as CaseStudyMeta, content };
+  const htmlContent = await markdownToHtml(content);
+  return { meta: data as CaseStudyMeta, content: htmlContent };
 }
 
 export async function getAllCaseStudies(): Promise<CaseStudyMeta[]> {

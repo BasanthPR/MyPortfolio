@@ -26,8 +26,7 @@ export default async function CaseStudyPage({
       <article className="max-w-3xl mx-auto px-6 py-16">
         <div
           dangerouslySetInnerHTML={{ __html: study.content }}
-          className="text-white/70 leading-relaxed"
-          style={{ fontFamily: 'var(--font-dm-sans)' }}
+          className="case-study-prose"
         />
       </article>
       <Footer />
