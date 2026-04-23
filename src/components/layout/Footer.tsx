@@ -15,6 +15,7 @@ const NAV_SECTIONS = [
   { label: 'Work', href: '#projects' },
   { label: 'About', href: '#about' },
   { label: 'Case Studies', href: '#case-studies' },
+  { label: 'Research', href: '#publications' },
   { label: 'Media', href: '#media' },
   { label: 'Library', href: '#library' },
   { label: 'Quotes', href: '#quotes' },

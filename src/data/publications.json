@@ -1,0 +1,86 @@
+[
+  {
+    "id": "pub-01",
+    "title": "A Multimodal Generative AI Framework for Cancer Pathology Classification",
+    "authors": "Mayank Kapadia, Basanth Periyapatna Roopa Kumar, Nischitha Nagendran",
+    "venue": "San Jose State University — Department of Applied Data Science",
+    "venueShort": "SJSU · ADS",
+    "year": 2025,
+    "abstract": "A multimodal generative AI framework combining histopathology image classification, clinical note classification via ClinicalBERT with SFT/TAPT/LoRA fine-tuning, and prompt-driven clinical captioning using RAG. Establishes baselines on PatchCamelyon (262K images) and curates TCGA BRCA clinical notes into a balanced dataset of 2,380 reports for unified multimodal cancer diagnostics.",
+    "metrics": [
+      { "label": "ViT-Base/16 ROC-AUC", "value": "0.9601" },
+      { "label": "ClinicalBERT LoRA F1", "value": "0.94" },
+      { "label": "PCam Test Images", "value": "32,768" }
+    ],
+    "tag": "Generative AI",
+    "subtag": "Healthcare",
+    "pdfUrl": "/docs/multimodal-cancer-pathology.pdf",
+    "externalUrl": null,
+    "doi": null,
+    "accent": "#00D4FF",
+    "index": 0
+  },
+  {
+    "id": "pub-02",
+    "title": "FireSense: Multispectral Fire Detection with Channel Attention and Probabilistic Calibration",
+    "authors": "Basanth Periyapatna Roopa Kumar, Nischitha Nagendran, Nandhakumar Apparsamy, Nitya Rondla",
+    "venue": "San Jose State University — DATA 255: Deep Learning",
+    "venueShort": "SJSU · DATA 255",
+    "year": 2025,
+    "abstract": "A deep learning framework for automated wildfire detection in Landsat-8 satellite imagery. Combines ResNet34-UNet with Convolutional Block Attention Modules (CBAM) across all 10 spectral bands, introduces soft labels from multi-annotator consensus to capture boundary uncertainty, and applies temperature scaling for calibrated probability estimates ready for operational deployment.",
+    "metrics": [
+      { "label": "Mean IoU", "value": "69.6%" },
+      { "label": "vs. Classical Baselines", "value": "+45.6%" },
+      { "label": "ECE Reduction", "value": "86.1%" }
+    ],
+    "tag": "Deep Learning",
+    "subtag": "Remote Sensing",
+    "pdfUrl": "/docs/firesense-fire-detection.pdf",
+    "externalUrl": null,
+    "doi": null,
+    "accent": "#FF4655",
+    "index": 1
+  },
+  {
+    "id": "pub-03",
+    "title": "Knowledge Graph-Enhanced Traffic Optimization System for the Bay Area",
+    "authors": "Anshu Reddy Dhamana, Basanth Periyapatna Roopa Kumar, Manav Rajesh Anandani, Nischitha Nagendran, Nitya Rondla, Srithareddy Devireddy, Vinuthna Papana",
+    "venue": "San Jose State University — DATA 266: Generative AI",
+    "venueShort": "SJSU · DATA 266",
+    "year": 2025,
+    "abstract": "A knowledge graph-based traffic optimization system for the San Francisco Bay Area fusing traffic flow, weather, incidents, and events into a unified semantic graph. Node2vec embeddings power a stacking ensemble achieving 92% prediction accuracy with the connects_to relationship, delivering actionable insights into weekday vs. weekend traffic patterns for city planning and commuter support.",
+    "metrics": [
+      { "label": "Prediction Accuracy", "value": "92%" },
+      { "label": "Graph Relationship Types", "value": "6" },
+      { "label": "Graph Nodes", "value": "550+" }
+    ],
+    "tag": "Knowledge Graphs",
+    "subtag": "ML",
+    "pdfUrl": "/docs/knowledge-graph-traffic.pdf",
+    "externalUrl": null,
+    "doi": null,
+    "accent": "#D4A843",
+    "index": 2
+  },
+  {
+    "id": "pub-04",
+    "title": "Peer-Reviewed Publication in Algorithms (MDPI)",
+    "authors": "Basanth Periyapatna Roopa Kumar et al.",
+    "venue": "Algorithms — MDPI · ISSN 1999-4893 · Vol. 18, No. 12",
+    "venueShort": "MDPI · Algorithms",
+    "year": 2025,
+    "abstract": "Published in MDPI's Algorithms journal (Vol. 18, Issue 12, 2025) — an open-access, peer-reviewed journal covering algorithm design, analysis, and applications across computer science and data science. Full text and supplementary materials available via DOI.",
+    "metrics": [
+      { "label": "Journal", "value": "Algorithms" },
+      { "label": "Publisher", "value": "MDPI OA" },
+      { "label": "Volume / Issue", "value": "18 / 12" }
+    ],
+    "tag": "Peer-Reviewed",
+    "subtag": "Published",
+    "pdfUrl": null,
+    "externalUrl": "https://www.mdpi.com/1999-4893/18/12/730",
+    "doi": "10.3390/a18120730",
+    "accent": "#1D9E75",
+    "index": 3
+  }
+]

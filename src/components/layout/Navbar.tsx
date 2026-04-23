@@ -8,6 +8,7 @@ import siteData from '@/data/site.json';
 const NAV_LINKS = [
   { label: 'Work', href: '#projects', section: 'projects' },
   { label: 'About', href: '#about', section: 'about' },
+  { label: 'Research', href: '#publications', section: 'publications' },
   { label: 'Library', href: '#library', section: 'library' },
   { label: 'Media', href: '#media', section: 'media' },
   { label: 'Contact', href: '#contact', section: 'contact' },
@@ -37,7 +38,7 @@ export default function Navbar() {
   // Active section detection via IntersectionObserver
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
-    const sectionIds = ['hero', 'about', 'projects', 'case-studies', 'media', 'library', 'quotes', 'contact'];
+    const sectionIds = ['hero', 'about', 'projects', 'case-studies', 'publications', 'media', 'library', 'quotes', 'contact'];
 
     sectionIds.forEach((id) => {
       const el = document.getElementById(id);

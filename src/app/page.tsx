@@ -3,6 +3,7 @@ import About from '@/components/sections/About';
 import WorkExperience from '@/components/sections/WorkExperience';
 import Projects from '@/components/sections/Projects';
 import CaseStudies from '@/components/sections/CaseStudies';
+import Publications from '@/components/sections/Publications';
 import Blog from '@/components/sections/Blog';
 import Library from '@/components/sections/Library';
 import Quotes from '@/components/sections/Quotes';
@@ -20,6 +21,7 @@ export default function Home() {
       <WorkExperience />
       <Projects />
       <CaseStudies />
+      <Publications />
       <Blog posts={posts} />
       <Library />
       <Quotes />
