@@ -109,7 +109,7 @@ function SocialLink({ label, href, delay }: { label: string; href?: string; dela
       target="_blank"
       rel="noopener noreferrer"
       className="group relative flex items-center gap-2 transition-colors duration-300"
-      style={{ color: 'rgba(242,237,232,0.28)' }}
+      style={{ color: 'rgba(242,237,232,0.62)' }}
       initial={{ opacity: 0, y: 8 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -155,7 +155,7 @@ export default function About() {
             {/* Section label */}
             <motion.p
               className="text-[10px] tracking-[0.4em] uppercase"
-              style={{ fontFamily: 'var(--font-jetbrains-mono)', color: 'rgba(242,237,232,0.25)' }}
+              style={{ fontFamily: 'var(--font-jetbrains-mono)', color: 'rgba(242,237,232,0.55)' }}
               initial={{ opacity: 0, x: -12 }}
               animate={isTextInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
@@ -191,7 +191,7 @@ export default function About() {
             >
               <p
                 className="text-base md:text-lg max-w-lg leading-[1.75]"
-                style={{ fontFamily: 'var(--font-dm-sans)', color: 'rgba(242,237,232,0.52)' }}
+                style={{ fontFamily: 'var(--font-dm-sans)', color: 'rgba(242,237,232,0.75)' }}
               >
                 I craft digital experiences that merge deep data analysis with high-end aesthetic design.
                 The goal is never just to make something work — it&apos;s to make it feel alive, purposeful,
@@ -239,7 +239,7 @@ export default function About() {
                     className="text-[10px] tracking-[0.2em] uppercase whitespace-nowrap px-4 border-r"
                     style={{
                       fontFamily: 'var(--font-jetbrains-mono)',
-                      color: 'rgba(242,237,232,0.22)',
+                      color: 'rgba(242,237,232,0.55)',
                       borderColor: 'rgba(242,237,232,0.07)',
                     }}
                   >
@@ -253,7 +253,7 @@ export default function About() {
             <div className="flex flex-wrap items-center gap-8 mt-2">
               <motion.p
                 className="text-[9px] tracking-[0.35em] uppercase"
-                style={{ fontFamily: 'var(--font-jetbrains-mono)', color: 'rgba(242,237,232,0.15)' }}
+                style={{ fontFamily: 'var(--font-jetbrains-mono)', color: 'rgba(242,237,232,0.40)' }}
                 initial={{ opacity: 0 }}
                 animate={isTextInView ? { opacity: 1 } : {}}
                 transition={{ duration: 0.5, delay: 1.0 }}

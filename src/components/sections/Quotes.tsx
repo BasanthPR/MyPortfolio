@@ -163,7 +163,7 @@ export default function Quotes() {
       <div ref={headerRef} className="max-w-6xl mx-auto px-6 md:px-12 pt-24 pb-0">
         <motion.p
           className="text-[10px] tracking-[0.4em] uppercase"
-          style={{ fontFamily: 'var(--font-jetbrains-mono)', color: 'rgba(242,237,232,0.22)' }}
+          style={{ fontFamily: 'var(--font-jetbrains-mono)', color: 'rgba(242,237,232,0.55)' }}
           initial={{ opacity: 0 }}
           animate={isHeaderInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6 }}

@@ -1,0 +1,137 @@
+---
+title: "F1 2026 Japanese GP — Prediction System V1.5"
+description: "Antonelli on pole at Suzuka. Verstappen buried in the midfield. After Australia confirmed Mercedes dominance, the model recalibrated — and found an 84.5% probability of a Mercedes 1-2."
+thumbnail: "/images/projects/f1/plot_01_win_probability.png"
+date: "2026-03-29"
+tags: ["XGBoost", "Monte Carlo", "Bayesian", "Python", "Suzuka"]
+slug: "f1-japanese-gp"
+---
+
+## Suzuka is Different
+
+Every circuit has a personality. Suzuka's is unforgiving. The Esses demand total commitment from the first sector. Degner curves punish hesitation. 130R is still one of the fastest corners in motorsport, taken flat-out at the edge of what the car will physically allow. The S-shaped flow of Suzuka rewards smooth, consistent driving — not heroics.
+
+What this means for prediction: overtaking opportunities are scarce. There's no equivalent of Albert Park's Turn 3 or Shanghai's heavy braking zone at Turn 14. If you qualify well at Suzuka, you tend to finish there. The circuit amplifies what qualifying already told you.
+
+After Australia, qualifying told us: Mercedes has this regulation cycle figured out.
+
+---
+
+## The Post-Australia Recalibration
+
+The Japanese GP was the second race of the 2026 season, and every model component updated after Australia:
+
+- **Monte Carlo**: Sprint-calibrated pace matrices from Albert Park race data replaced practice-session estimates
+- **Bayesian**: Mercedes' prior updated with actual race-distance energy management evidence — they didn't just qualify fast, they managed the battery correctly over 58 laps
+- **XGBoost**: Constructor strength rolling average shifted significantly after Race 1 results
+
+The net effect: the Bayesian model's uncertainty widened for Red Bull and closed for Mercedes. The Mercedes 1-2 probability moved from a theoretical outcome to an expected one.
+
+---
+
+## Qualifying Grid
+
+| Pos | Driver | Team | Note |
+|:----|:-------|:-----|:-----|
+| **P1** | Kimi Antonelli | Mercedes | First career pole — youngest ever |
+| **P2** | George Russell | Mercedes | +0.082s |
+| **P3** | Oscar Piastri | McLaren | — |
+| **P4** | Charles Leclerc | Ferrari | — |
+| **P5** | Lando Norris | McLaren | — |
+| **P6** | Lewis Hamilton | Ferrari | — |
+| **P14** | Max Verstappen | Red Bull | ERS mapping error in Q2 |
+
+Antonelli's pole lap was extraordinary. At 19 years old, running his second season in Formula 1, he put together a Suzuka lap that beat his vastly more experienced teammate by 0.082 seconds. The circuit that rewards smoothness and commitment above all else — he delivered both.
+
+Verstappen's P14 was the other story. An ERS mapping error in Q2 left him unable to deploy full power through the Esses, costing over a second per lap at a circuit that doesn't offer second chances. From P14 at Suzuka, the physics are even worse than P20 at Albert Park.
+
+---
+
+## Ensemble Output
+
+| Driver | Ensemble Win % |
+|:-------|:--------------:|
+| **Antonelli** | **55.7%** |
+| **Russell** | **28.8%** |
+| Piastri | 5.1% |
+| Leclerc | 3.8% |
+| Norris | 0.9% |
+| Hamilton | 0.8% |
+| Verstappen | 0.3% |
+
+**Mercedes 1-2 probability: ~84.5%**
+
+![Win Probability Distribution](/images/projects/f1/plot_01_win_probability.png)
+
+Antonelli is the model's clear favourite — not because of his career history, but because of what the physics say about a front-row pole at Suzuka combined with confirmed race-pace dominance from Australia. At a circuit with limited overtaking, P1 with the fastest car is an exceptionally strong position.
+
+---
+
+## Why Antonelli Over Russell
+
+The Bayesian model's prior for Russell is higher than Antonelli's (more historical wins, more regulation-change experience). But the Monte Carlo simulator doesn't care about history — it cares about qualifying pace and race-pace projections. Antonelli is 0.082s ahead on qualifying, and the circuit doesn't offer many opportunities to recover that gap if the cars are equal in race pace.
+
+The result is a split: Russell's weight from historical prior versus Antonelli's weight from pole physics. The ensemble resolves this at 55.7% / 28.8%.
+
+This is exactly what the ensemble is designed for: preventing any single worldview from dominating when the evidence is genuinely mixed.
+
+---
+
+## Verstappen's Recovery Problem
+
+From P14 at Suzuka, the model ran a specific recovery analysis across the 10,000 simulations.
+
+![Verstappen Recovery Analysis](/images/projects/f1/plot_09_verstappen_recovery.png)
+
+Base case win probability: **0.3%**. With a late-race safety car on laps 41–53: **~2% maximum**.
+
+The mechanics of the problem: to win from P14 at Suzuka, Verstappen needs the 13 drivers ahead to either pit, DNF, or be compromised by safety car stacking. With Mercedes running 1-2 in dominant form, even a neutralisation event doesn't remove them from the equation — they'd still be ahead after any restart. The realistic outcome from P14 at Suzuka is a points finish in the top 8, which is what the model showed as his 35th-percentile scenario.
+
+---
+
+## Model Agreement
+
+![Model Agreement Chart](/images/projects/f1/plot_07_model_agreement.png)
+
+High-confidence zones at the Japanese GP:
+- Mercedes 1-2: all three models agreed
+- McLaren P3 (Piastri): XGBoost and Monte Carlo aligned, Bayesian slightly lower
+- Verstappen sub-1%: Monte Carlo and XGBoost; Bayesian gave 1.2% (prior effect)
+
+The podium heatmap showed the most concentrated probability distribution of the season so far — a sign that the model was operating with relatively low uncertainty, post-Australia calibration having tightened the variance significantly.
+
+![Podium Heatmap](/images/projects/f1/plot_02_podium_heatmap.png)
+
+---
+
+## Tire Degradation at Suzuka
+
+Suzuka's high-speed corners load the front tires differently from Albert Park's stop-start layout. The 2026 narrower compounds showed earlier degradation onset on the front-left — the tire that takes the most load through the Esses, 130R, and Spoon.
+
+![Tire Degradation Curves](/images/projects/f1/plot_04_tyre_degradation_curves.png)
+
+The practical effect: teams running one-stop strategies would face a decision on lap 20–24 about whether to extend the front-left into degradation cliff territory. Mercedes' simulator suggested they had enough pace to manage a longer first stint, which further advantaged their strategic position.
+
+---
+
+## Bayesian Posteriors
+
+![Bayesian Posteriors](/images/projects/f1/plot_08_bayesian_posteriors.png)
+
+The Bayesian model's posterior distributions for the Japanese GP were notably tighter than Australia. The prior uncertainty from year-one regulations was still present, but two weeks of actual 2026 racing data — one qualifying session and one full race — provided strong likelihood updates that narrowed the distributions.
+
+Hamilton's posterior remained elevated relative to his grid position (P6). Six Shanghai wins and strong regulation-change performance history kept his prior high enough to matter. The model wasn't predicting a Hamilton win, but it was refusing to dismiss him.
+
+---
+
+## Technical Reports
+
+- [2026 Japanese GP Full Prediction Report (PDF)](/docs/2026_Japanese_GP_Prediction_Report.pdf)
+
+## Tech Stack
+
+- **Python:** NumPy, SciPy, Pandas
+- **ML:** XGBoost 2.0, Scikit-learn
+- **Data:** FastF1, Jolpica-F1 API, OpenF1 API
+- **Visualization:** Matplotlib, Seaborn
+- **Validation:** Post-Australia calibrated pace matrices

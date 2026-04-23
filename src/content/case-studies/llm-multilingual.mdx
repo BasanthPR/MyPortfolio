@@ -22,81 +22,82 @@ Modern LLMs use **Byte-Pair Encoding (BPE)** tokenizers, which operate on raw UT
 The problem is in what "frequently" means in practice.
 
 <div class="arch-diagram">
-<svg viewBox="0 0 780 520" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
+<svg viewBox="0 0 780 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
   <defs>
     <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#00D4FF;stop-opacity:0.15"/>
-      <stop offset="100%" style="stop-color:#00D4FF;stop-opacity:0.03"/>
+      <stop offset="0%" style="stop-color:#00D4FF;stop-opacity:0.30"/>
+      <stop offset="100%" style="stop-color:#00D4FF;stop-opacity:0.08"/>
     </linearGradient>
     <linearGradient id="warnGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#C1121F;stop-opacity:0.18"/>
-      <stop offset="100%" style="stop-color:#C1121F;stop-opacity:0.04"/>
+      <stop offset="0%" style="stop-color:#C1121F;stop-opacity:0.35"/>
+      <stop offset="100%" style="stop-color:#C1121F;stop-opacity:0.10"/>
     </linearGradient>
-    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L8,3 z" fill="rgba(242,237,232,0.2)"/>
+    <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="rgba(242,237,232,0.55)"/>
     </marker>
   </defs>
 
-  <!-- Title row -->
-  <text x="390" y="22" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.2)" letter-spacing="3">BPE TOKENIZATION — ENGLISH vs KANNADA</text>
+  <!-- Title -->
+  <text x="390" y="20" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(242,237,232,0.55)" letter-spacing="3">BPE TOKENIZATION — ENGLISH vs INDIC SCRIPT</text>
 
-  <!-- English path -->
-  <rect x="20" y="38" width="340" height="38" rx="4" fill="rgba(242,237,232,0.03)" stroke="rgba(242,237,232,0.1)" stroke-width="1"/>
-  <text x="190" y="54" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(0,212,255,0.7)" letter-spacing="1">INPUT: "Harvest Festival"</text>
-  <text x="190" y="68" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(242,237,232,0.3)">2 Unicode points · 15 ASCII bytes (1 byte/char)</text>
+  <!-- English input box -->
+  <rect x="20" y="34" width="345" height="44" rx="4" fill="rgba(0,212,255,0.06)" stroke="rgba(0,212,255,0.45)" stroke-width="1.2"/>
+  <text x="192" y="52" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="rgba(0,212,255,0.95)" letter-spacing="1">INPUT: "Harvest Festival"</text>
+  <text x="192" y="70" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.65)">15 ASCII bytes · 1 byte per character</text>
 
-  <!-- Kannada path -->
-  <rect x="420" y="38" width="340" height="38" rx="4" fill="rgba(242,237,232,0.03)" stroke="rgba(242,237,232,0.1)" stroke-width="1"/>
-  <text x="590" y="54" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(193,18,31,0.7)" letter-spacing="1">INPUT: "ಸಂಕ್ರಾಂತಿ" (Sankrānti)</text>
-  <text x="590" y="68" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(242,237,232,0.3)">9 Unicode points · 27 UTF-8 bytes (3 bytes/char)</text>
+  <!-- Kannada input box -->
+  <rect x="415" y="34" width="345" height="44" rx="4" fill="rgba(193,18,31,0.08)" stroke="rgba(193,18,31,0.55)" stroke-width="1.2"/>
+  <text x="592" y="52" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="rgba(193,18,31,0.95)" letter-spacing="1">INPUT: Sankranti [Kannada]</text>
+  <text x="592" y="70" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.65)">9 Unicode points · 27 UTF-8 bytes · 3 bytes/char</text>
 
-  <!-- BPE Processing -->
-  <line x1="190" y1="76" x2="190" y2="116" stroke="rgba(242,237,232,0.12)" stroke-width="1" marker-end="url(#arr)"/>
-  <line x1="590" y1="76" x2="590" y2="116" stroke="rgba(242,237,232,0.12)" stroke-width="1" marker-end="url(#arr)"/>
-  <rect x="160" y="116" width="440" height="34" rx="4" fill="rgba(242,237,232,0.02)" stroke="rgba(242,237,232,0.08)" stroke-width="1"/>
-  <text x="390" y="131" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.4)" letter-spacing="2">BPE MERGE RULES (learned from 95% English corpus)</text>
-  <text x="390" y="143" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.2)">English byte pairs → high-frequency merges · Kannada byte pairs → low-frequency, fragmented</text>
+  <!-- Arrows down -->
+  <line x1="192" y1="78" x2="192" y2="112" stroke="rgba(242,237,232,0.45)" stroke-width="1.2" marker-end="url(#arr2)"/>
+  <line x1="592" y1="78" x2="592" y2="112" stroke="rgba(242,237,232,0.45)" stroke-width="1.2" marker-end="url(#arr2)"/>
+
+  <!-- BPE engine -->
+  <rect x="155" y="112" width="450" height="42" rx="4" fill="rgba(242,237,232,0.05)" stroke="rgba(242,237,232,0.30)" stroke-width="1"/>
+  <text x="380" y="129" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" fill="rgba(242,237,232,0.85)" letter-spacing="2">BPE MERGE RULES</text>
+  <text x="380" y="146" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.60)">Learned from corpus ~95% English — Indic byte pairs appear with low frequency</text>
+
+  <!-- Arrows down from BPE -->
+  <line x1="192" y1="154" x2="192" y2="184" stroke="rgba(242,237,232,0.45)" stroke-width="1.2" marker-end="url(#arr2)"/>
+  <line x1="592" y1="154" x2="592" y2="184" stroke="rgba(242,237,232,0.45)" stroke-width="1.2" marker-end="url(#arr2)"/>
 
   <!-- English result -->
-  <line x1="190" y1="150" x2="190" y2="186" stroke="rgba(242,237,232,0.12)" stroke-width="1" marker-end="url(#arr)"/>
-  <rect x="20" y="186" width="340" height="70" rx="4" fill="url(#tealGrad)" stroke="rgba(0,212,255,0.25)" stroke-width="1"/>
-  <text x="190" y="206" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(0,212,255,0.8)" letter-spacing="1">TOKENIZED OUTPUT</text>
-  <text x="190" y="224" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12" fill="rgba(242,237,232,0.7)">[Harvest] [Festival]</text>
-  <text x="190" y="242" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(0,212,255,0.6)">2 tokens · semantic units intact</text>
-  <text x="190" y="254" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.25)">each token = one recognizable word</text>
+  <rect x="20" y="184" width="345" height="80" rx="4" fill="url(#tealGrad)" stroke="rgba(0,212,255,0.60)" stroke-width="1.2"/>
+  <text x="192" y="204" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(0,212,255,1.0)" letter-spacing="2">OUTPUT — 2 TOKENS</text>
+  <text x="192" y="228" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="16" fill="rgba(242,237,232,0.95)" letter-spacing="2">[Harvest]  [Festival]</text>
+  <text x="192" y="252" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(0,212,255,0.85)">Semantic units preserved — model understands meaning</text>
 
   <!-- Kannada result -->
-  <line x1="590" y1="150" x2="590" y2="186" stroke="rgba(242,237,232,0.12)" stroke-width="1" marker-end="url(#arr)"/>
-  <rect x="420" y="186" width="340" height="70" rx="4" fill="url(#warnGrad)" stroke="rgba(193,18,31,0.3)" stroke-width="1"/>
-  <text x="590" y="206" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(193,18,31,0.8)" letter-spacing="1">TOKENIZED OUTPUT</text>
-  <text x="590" y="222" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(242,237,232,0.6)">[à²¸] [à²] [à²•] [à³] [à²°] [à²¾] [à²] [à²¤] [à²¿]</text>
-  <text x="590" y="240" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(193,18,31,0.6)">8–12 tokens · semantic integrity destroyed</text>
-  <text x="590" y="254" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.25)">byte fragments — model has no concept of ಸಂಕ್ರಾಂತಿ</text>
+  <rect x="415" y="184" width="345" height="80" rx="4" fill="url(#warnGrad)" stroke="rgba(193,18,31,0.65)" stroke-width="1.2"/>
+  <text x="592" y="204" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(193,18,31,1.0)" letter-spacing="2">OUTPUT — 8-12 BYTE FRAGMENTS</text>
+  <text x="592" y="224" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" fill="rgba(242,237,232,0.90)">[0xE0][0xB2][0xB8] [0xE0][0xB2][0x82]</text>
+  <text x="592" y="242" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" fill="rgba(242,237,232,0.80)">[0xE0][0xB2][0x95][0xE0][0xB3][0x8D]...</text>
+  <text x="592" y="258" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(193,18,31,0.90)">No semantic meaning — raw UTF-8 bytes</text>
 
-  <!-- Impact cascade -->
-  <line x1="190" y1="256" x2="190" y2="296" stroke="rgba(242,237,232,0.1)" stroke-width="1"/>
-  <line x1="590" y1="256" x2="590" y2="296" stroke="rgba(242,237,232,0.1)" stroke-width="1"/>
-  <line x1="190" y1="296" x2="590" y2="296" stroke="rgba(242,237,232,0.1)" stroke-width="1"/>
-  <line x1="390" y1="296" x2="390" y2="326" stroke="rgba(242,237,232,0.1)" stroke-width="1" marker-end="url(#arr)"/>
-  <rect x="160" y="326" width="460" height="88" rx="4" fill="rgba(5,5,10,0.8)" stroke="rgba(242,237,232,0.08)" stroke-width="1"/>
-  <text x="390" y="348" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.4)" letter-spacing="2">DOWNSTREAM CONSEQUENCES</text>
-  <text x="390" y="368" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(242,237,232,0.28)">→ 3–5× more API tokens consumed per equivalent semantic content</text>
-  <text x="390" y="384" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(242,237,232,0.28)">→ 128K context window effectively shrinks to ~25K tokens for Kannada users</text>
-  <text x="390" y="400" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(193,18,31,0.6)">→ English Pivot: model internally "thinks" in English, re-translates back</text>
-  <text x="390" y="408" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(242,237,232,0.18)"> </text>
+  <!-- Merge lines for consequences -->
+  <line x1="192" y1="264" x2="192" y2="298" stroke="rgba(242,237,232,0.35)" stroke-width="1"/>
+  <line x1="592" y1="264" x2="592" y2="298" stroke="rgba(242,237,232,0.35)" stroke-width="1"/>
+  <line x1="192" y1="298" x2="592" y2="298" stroke="rgba(242,237,232,0.35)" stroke-width="1"/>
+  <line x1="392" y1="298" x2="392" y2="322" stroke="rgba(242,237,232,0.45)" stroke-width="1.2" marker-end="url(#arr2)"/>
 
-  <!-- Fertility comparison bars -->
-  <text x="390" y="440" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.18)" letter-spacing="3">TOKEN FERTILITY RATIO (tokens per word)</text>
-  <rect x="100" y="452" width="48" height="12" rx="2" fill="rgba(0,212,255,0.4)" stroke="rgba(0,212,255,0.4)" stroke-width="0"/>
-  <text x="154" y="462" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(242,237,232,0.4)">English: 1.0×</text>
-  <rect x="280" y="452" width="80" height="12" rx="2" fill="rgba(212,168,67,0.35)" stroke="none"/>
-  <text x="366" y="462" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(242,237,232,0.4)">Hindi: 2–3×</text>
-  <rect x="460" y="452" width="144" height="12" rx="2" fill="rgba(193,18,31,0.45)" stroke="none"/>
-  <text x="610" y="462" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(242,237,232,0.4)">Kannada / Tamil: 3–5×</text>
-  <text x="52" y="482" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.15)">1×</text>
-  <text x="232" y="482" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.15)">2×</text>
-  <text x="412" y="482" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.15)">3×</text>
-  <text x="592" y="482" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.15)">4×</text>
+  <!-- Consequences box -->
+  <rect x="100" y="322" width="580" height="100" rx="4" fill="rgba(5,5,10,0.90)" stroke="rgba(242,237,232,0.20)" stroke-width="1"/>
+  <text x="390" y="342" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(242,237,232,0.70)" letter-spacing="3">DOWNSTREAM CONSEQUENCES</text>
+  <text x="390" y="362" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(242,237,232,0.80)">&#x25B6;  3-5x more API tokens consumed per equivalent semantic content</text>
+  <text x="390" y="380" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(242,237,232,0.80)">&#x25B6;  128K context window shrinks to ~25K effective tokens for Kannada</text>
+  <text x="390" y="398" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(193,18,31,0.90)">&#x25B6;  English Pivot — model reasons in English, re-translates output back</text>
+  <text x="390" y="416" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(212,168,67,0.90)">&#x25B6;  $262K-$365K annual cost premium for Hindi-language API services</text>
+
+  <!-- Fertility bars -->
+  <text x="390" y="448" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(242,237,232,0.60)" letter-spacing="3">TOKEN FERTILITY (tokens per word relative to English)</text>
+  <rect x="80" y="458" width="55" height="14" rx="2" fill="rgba(0,212,255,0.70)"/>
+  <text x="140" y="469" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(242,237,232,0.80)">English 1x</text>
+  <rect x="250" y="458" width="90" height="14" rx="2" fill="rgba(212,168,67,0.65)"/>
+  <text x="346" y="469" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(242,237,232,0.80)">Hindi 2-3x</text>
+  <rect x="460" y="458" width="160" height="14" rx="2" fill="rgba(193,18,31,0.75)"/>
+  <text x="626" y="469" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(242,237,232,0.80)">Kannada/Tamil 3-5x</text>
 </svg>
 </div>
 

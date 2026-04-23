@@ -148,7 +148,7 @@ export default function WorkExperience() {
         <div className="mb-24 md:mb-40 flex flex-col items-center md:items-start text-center md:text-left overflow-hidden">
           <motion.p
             className="text-[10px] tracking-[0.4em] uppercase mb-4"
-            style={{ fontFamily: 'var(--font-jetbrains-mono)', color: 'rgba(242,237,232,0.25)' }}
+            style={{ fontFamily: 'var(--font-jetbrains-mono)', color: 'rgba(242,237,232,0.55)' }}
             initial={{ opacity: 0, x: -12 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}

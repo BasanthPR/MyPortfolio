@@ -79,7 +79,7 @@ export default function Hero() {
           className="mb-8 tracking-[0.3em] uppercase text-[10px] md:text-[11px]"
           style={{
             fontFamily: 'var(--font-jetbrains-mono)',
-            color: 'rgba(242, 237, 232, 0.28)',
+            color: 'rgba(242, 237, 232, 0.62)',
           }}
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -111,7 +111,7 @@ export default function Hero() {
           className="mb-8 max-w-md mx-auto text-base md:text-lg leading-relaxed"
           style={{
             fontFamily: 'var(--font-dm-sans)',
-            color: 'rgba(242, 237, 232, 0.32)',
+            color: 'rgba(242, 237, 232, 0.65)',
           }}
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -151,7 +151,7 @@ export default function Hero() {
             className="text-sm transition-colors duration-300 hover:text-white/70"
             style={{
               fontFamily: 'var(--font-dm-sans)',
-              color: 'rgba(242,237,232,0.22)',
+              color: 'rgba(242,237,232,0.55)',
               letterSpacing: '0.02em',
             }}
           >

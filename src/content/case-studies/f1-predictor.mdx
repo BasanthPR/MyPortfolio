@@ -23,86 +23,86 @@ The core idea is that no single model can be trusted in novel conditions. The en
 <svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
   <defs>
     <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#C1121F;stop-opacity:0.2"/>
-      <stop offset="100%" style="stop-color:#C1121F;stop-opacity:0.05"/>
+      <stop offset="0%" style="stop-color:#C1121F;stop-opacity:0.45"/>
+      <stop offset="100%" style="stop-color:#C1121F;stop-opacity:0.15"/>
     </linearGradient>
     <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#00D4FF;stop-opacity:0.2"/>
-      <stop offset="100%" style="stop-color:#00D4FF;stop-opacity:0.05"/>
+      <stop offset="0%" style="stop-color:#00D4FF;stop-opacity:0.45"/>
+      <stop offset="100%" style="stop-color:#00D4FF;stop-opacity:0.15"/>
     </linearGradient>
     <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#D4A843;stop-opacity:0.2"/>
-      <stop offset="100%" style="stop-color:#D4A843;stop-opacity:0.05"/>
+      <stop offset="0%" style="stop-color:#D4A843;stop-opacity:0.45"/>
+      <stop offset="100%" style="stop-color:#D4A843;stop-opacity:0.15"/>
     </linearGradient>
     <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L8,3 z" fill="rgba(242,237,232,0.25)"/>
+      <path d="M0,0 L0,6 L8,3 z" fill="rgba(242,237,232,0.65)"/>
     </marker>
   </defs>
 
   <!-- Data Sources -->
-  <rect x="20" y="30" width="180" height="44" rx="4" fill="rgba(242,237,232,0.03)" stroke="rgba(242,237,232,0.12)" stroke-width="1"/>
-  <text x="110" y="50" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(242,237,232,0.5)" letter-spacing="1">JOLPICA-F1 API</text>
-  <text x="110" y="64" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.25)">1,200 race results · 2014–2025</text>
+  <rect x="20" y="30" width="180" height="44" rx="4" fill="rgba(242,237,232,0.03)" stroke="rgba(242,237,232,0.35)" stroke-width="1"/>
+  <text x="110" y="50" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(242,237,232,0.80)" letter-spacing="1">JOLPICA-F1 API</text>
+  <text x="110" y="64" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.65)">1,200 race results · 2014–2025</text>
 
-  <rect x="220" y="30" width="180" height="44" rx="4" fill="rgba(242,237,232,0.03)" stroke="rgba(242,237,232,0.12)" stroke-width="1"/>
-  <text x="310" y="50" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(242,237,232,0.5)" letter-spacing="1">OPENF1 API</text>
-  <text x="310" y="64" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.25)">real-time telemetry · lap data</text>
+  <rect x="220" y="30" width="180" height="44" rx="4" fill="rgba(242,237,232,0.03)" stroke="rgba(242,237,232,0.35)" stroke-width="1"/>
+  <text x="310" y="50" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(242,237,232,0.80)" letter-spacing="1">OPENF1 API</text>
+  <text x="310" y="64" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.65)">real-time telemetry · lap data</text>
 
-  <rect x="420" y="30" width="180" height="44" rx="4" fill="rgba(242,237,232,0.03)" stroke="rgba(242,237,232,0.12)" stroke-width="1"/>
-  <text x="510" y="50" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(242,237,232,0.5)" letter-spacing="1">FASTF1</text>
-  <text x="510" y="64" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.25)">tire · sector · weather · quali</text>
+  <rect x="420" y="30" width="180" height="44" rx="4" fill="rgba(242,237,232,0.03)" stroke="rgba(242,237,232,0.35)" stroke-width="1"/>
+  <text x="510" y="50" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(242,237,232,0.80)" letter-spacing="1">FASTF1</text>
+  <text x="510" y="64" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.65)">tire · sector · weather · quali</text>
 
   <!-- Feature Engineering -->
-  <line x1="400" y1="74" x2="400" y2="110" stroke="rgba(242,237,232,0.15)" stroke-width="1" marker-end="url(#arrow)"/>
-  <rect x="160" y="110" width="480" height="55" rx="4" fill="rgba(242,237,232,0.02)" stroke="rgba(242,237,232,0.1)" stroke-width="1"/>
-  <text x="400" y="132" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(242,237,232,0.4)" letter-spacing="2">FEATURE ENGINEERING PIPELINE</text>
-  <text x="400" y="152" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.22)">26 features · 4 tiers · GroupKFold validation · regulation-era encoding</text>
+  <line x1="400" y1="74" x2="400" y2="110" stroke="rgba(242,237,232,0.40)" stroke-width="1" marker-end="url(#arrow)"/>
+  <rect x="160" y="110" width="480" height="55" rx="4" fill="rgba(242,237,232,0.02)" stroke="rgba(242,237,232,0.30)" stroke-width="1"/>
+  <text x="400" y="132" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(242,237,232,0.75)" letter-spacing="2">FEATURE ENGINEERING PIPELINE</text>
+  <text x="400" y="152" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.65)">26 features · 4 tiers · GroupKFold validation · regulation-era encoding</text>
 
   <!-- Three Models -->
-  <line x1="260" y1="165" x2="180" y2="210" stroke="rgba(242,237,232,0.12)" stroke-width="1" marker-end="url(#arrow)"/>
-  <line x1="400" y1="165" x2="400" y2="210" stroke="rgba(242,237,232,0.12)" stroke-width="1" marker-end="url(#arrow)"/>
-  <line x1="540" y1="165" x2="620" y2="210" stroke="rgba(242,237,232,0.12)" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="260" y1="165" x2="180" y2="210" stroke="rgba(242,237,232,0.35)" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="400" y1="165" x2="400" y2="210" stroke="rgba(242,237,232,0.35)" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="540" y1="165" x2="620" y2="210" stroke="rgba(242,237,232,0.35)" stroke-width="1" marker-end="url(#arrow)"/>
 
   <!-- XGBoost -->
-  <rect x="60" y="210" width="200" height="110" rx="6" fill="url(#redGrad)" stroke="rgba(193,18,31,0.35)" stroke-width="1"/>
-  <text x="160" y="232" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(193,18,31,0.9)" letter-spacing="2">XGBOOST</text>
-  <text x="160" y="248" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(242,237,232,0.35)">Pattern Matcher</text>
-  <text x="160" y="268" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.22)">12 years hybrid-era data</text>
-  <text x="160" y="283" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.22)">scale_pos_weight · 20× penalty</text>
-  <text x="160" y="298" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.22)">rolling constructor_strength</text>
-  <text x="160" y="313" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(193,18,31,0.7)">weight: 0.35</text>
+  <rect x="60" y="210" width="200" height="110" rx="6" fill="url(#redGrad)" stroke="rgba(193,18,31,0.75)" stroke-width="1"/>
+  <text x="160" y="232" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(193,18,31,1.0)" letter-spacing="2">XGBOOST</text>
+  <text x="160" y="248" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(242,237,232,0.70)">Pattern Matcher</text>
+  <text x="160" y="268" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.65)">12 years hybrid-era data</text>
+  <text x="160" y="283" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.65)">scale_pos_weight · 20× penalty</text>
+  <text x="160" y="298" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.65)">rolling constructor_strength</text>
+  <text x="160" y="313" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(193,18,31,0.95)">weight: 0.35</text>
 
   <!-- Monte Carlo -->
   <rect x="300" y="210" width="200" height="110" rx="6" fill="url(#blueGrad)" stroke="rgba(0,212,255,0.3)" stroke-width="1"/>
-  <text x="400" y="232" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(0,212,255,0.9)" letter-spacing="2">MONTE CARLO</text>
-  <text x="400" y="248" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(242,237,232,0.35)">Physics Engine</text>
-  <text x="400" y="268" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.22)">10,000 race simulations</text>
-  <text x="400" y="283" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.22)">tire deg · fuel burn · SC model</text>
-  <text x="400" y="298" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.22)">lap-by-lap Normal sampling</text>
-  <text x="400" y="313" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(0,212,255,0.6)">weight: 0.35</text>
+  <text x="400" y="232" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(0,212,255,1.0)" letter-spacing="2">MONTE CARLO</text>
+  <text x="400" y="248" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(242,237,232,0.70)">Physics Engine</text>
+  <text x="400" y="268" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.65)">10,000 race simulations</text>
+  <text x="400" y="283" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.65)">tire deg · fuel burn · SC model</text>
+  <text x="400" y="298" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.65)">lap-by-lap Normal sampling</text>
+  <text x="400" y="313" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(0,212,255,0.90)">weight: 0.35</text>
 
   <!-- Bayesian -->
   <rect x="540" y="210" width="200" height="110" rx="6" fill="url(#goldGrad)" stroke="rgba(212,168,67,0.3)" stroke-width="1"/>
-  <text x="640" y="232" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(212,168,67,0.9)" letter-spacing="2">BAYESIAN</text>
-  <text x="640" y="248" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(242,237,232,0.35)">Belief Updater</text>
-  <text x="640" y="268" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.22)">Beta-Binomial conjugacy</text>
-  <text x="640" y="283" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.22)">prior → likelihood → posterior</text>
-  <text x="640" y="298" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.22)">explicit uncertainty bounds</text>
-  <text x="640" y="313" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(212,168,67,0.7)">weight: 0.30</text>
+  <text x="640" y="232" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(212,168,67,1.0)" letter-spacing="2">BAYESIAN</text>
+  <text x="640" y="248" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="rgba(242,237,232,0.70)">Belief Updater</text>
+  <text x="640" y="268" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.65)">Beta-Binomial conjugacy</text>
+  <text x="640" y="283" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.65)">prior → likelihood → posterior</text>
+  <text x="640" y="298" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(242,237,232,0.65)">explicit uncertainty bounds</text>
+  <text x="640" y="313" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(212,168,67,0.95)">weight: 0.30</text>
 
   <!-- Ensemble -->
-  <line x1="160" y1="320" x2="340" y2="370" stroke="rgba(242,237,232,0.12)" stroke-width="1" marker-end="url(#arrow)"/>
-  <line x1="400" y1="320" x2="400" y2="370" stroke="rgba(242,237,232,0.12)" stroke-width="1" marker-end="url(#arrow)"/>
-  <line x1="640" y1="320" x2="460" y2="370" stroke="rgba(242,237,232,0.12)" stroke-width="1" marker-end="url(#arrow)"/>
-  <rect x="220" y="370" width="360" height="80" rx="6" fill="rgba(242,237,232,0.03)" stroke="rgba(242,237,232,0.15)" stroke-width="1"/>
-  <text x="400" y="396" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(242,237,232,0.6)" letter-spacing="2">WEIGHTED ENSEMBLE</text>
-  <text x="400" y="414" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.3)">P_final = 0.35·XGB + 0.35·MC + 0.30·Bayes</text>
-  <text x="400" y="433" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.22)">ranked win probabilities · confidence intervals · risk flags</text>
+  <line x1="160" y1="320" x2="340" y2="370" stroke="rgba(242,237,232,0.35)" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="400" y1="320" x2="400" y2="370" stroke="rgba(242,237,232,0.35)" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="640" y1="320" x2="460" y2="370" stroke="rgba(242,237,232,0.35)" stroke-width="1" marker-end="url(#arrow)"/>
+  <rect x="220" y="370" width="360" height="80" rx="6" fill="rgba(242,237,232,0.03)" stroke="rgba(242,237,232,0.40)" stroke-width="1"/>
+  <text x="400" y="396" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(242,237,232,0.85)" letter-spacing="2">WEIGHTED ENSEMBLE</text>
+  <text x="400" y="414" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.68)">P_final = 0.35·XGB + 0.35·MC + 0.30·Bayes</text>
+  <text x="400" y="433" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.65)">ranked win probabilities · confidence intervals · risk flags</text>
 
   <!-- Labels -->
-  <text x="400" y="22" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.18)" letter-spacing="3">DATA SOURCES</text>
-  <text x="400" y="200" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.18)" letter-spacing="3">MODEL LAYER</text>
-  <text x="400" y="362" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.18)" letter-spacing="3">OUTPUT LAYER</text>
+  <text x="400" y="22" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.50)" letter-spacing="3">DATA SOURCES</text>
+  <text x="400" y="200" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.50)" letter-spacing="3">MODEL LAYER</text>
+  <text x="400" y="362" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(242,237,232,0.50)" letter-spacing="3">OUTPUT LAYER</text>
 </svg>
 </div>
 

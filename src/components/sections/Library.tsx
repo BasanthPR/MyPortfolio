@@ -241,7 +241,7 @@ export default function Library() {
       <div className="mb-16">
         <motion.p
           className="text-[10px] tracking-[0.4em] uppercase mb-4"
-          style={{ fontFamily: 'var(--font-jetbrains-mono)', color: 'rgba(242,237,232,0.25)' }}
+          style={{ fontFamily: 'var(--font-jetbrains-mono)', color: 'rgba(242,237,232,0.55)' }}
           initial={{ opacity: 0, x: -12 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
