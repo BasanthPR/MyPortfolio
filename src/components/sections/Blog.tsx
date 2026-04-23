@@ -65,10 +65,10 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
               <Link href={`/blog/${heroPost.slug}`} className="absolute inset-0 z-10" aria-label={`Read ${heroPost.title}`} />
               
               <div className="relative z-20 mt-auto">
-                <span 
+                <span
                   className="inline-block px-2 py-1 mb-4 text-[9px] tracking-[0.2em] uppercase rounded border"
-                  style={{ 
-                    fontFamily: 'var(--font-jetbrains-mono)', 
+                  style={{
+                    fontFamily: 'var(--font-jetbrains-mono)',
                     color: heroPost.accent,
                     borderColor: `${heroPost.accent}40`,
                     backgroundColor: `${heroPost.accent}10`
@@ -76,7 +76,7 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
                 >
                   [{heroPost.category}]
                 </span>
-                <h3 
+                <h3
                   className="font-normal leading-tight mb-4 group-hover:text-white transition-colors"
                   style={{
                     fontFamily: 'var(--font-instrument-serif)',
@@ -90,6 +90,21 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
                   <span>{new Date(heroPost.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                   <span className="w-1 h-1 rounded-full bg-white/20" />
                   <span>{heroPost.readingTime} MIN READ</span>
+                  {heroPost.externalUrl && (
+                    <>
+                      <span className="w-1 h-1 rounded-full bg-white/20" />
+                      <a
+                        href={heroPost.externalUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="relative z-30 hover:text-white transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                        style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
+                      >
+                        Read original ↗
+                      </a>
+                    </>
+                  )}
                 </div>
               </div>
             </motion.div>

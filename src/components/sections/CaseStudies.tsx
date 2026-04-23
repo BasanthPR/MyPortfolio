@@ -70,6 +70,18 @@ const CASE_STUDIES: CaseStudyEntry[] = [
     index: 3,
     imageLabel: 'NLP',
   },
+  {
+    id: '5',
+    title: 'Cognivi — Stroke Detection Under $10',
+    description:
+      'A privacy-first, multimodal AI system built at TreeHacks 2026. MediaPipe arm-drift + facial asymmetry detection fused with a PubMed-grounded RAG pipeline feeding Claude 3 for neurologic speech grading — all from a 60-second smartphone video.',
+    tag: 'AI/Health',
+    slug: 'cognivi',
+    linkedinUrl: null,
+    accent: '#C1121F',
+    index: 4,
+    imageLabel: 'HEALTH',
+  },
 ];
 
 function CaseStudyCard({ study, isEven }: { study: CaseStudyEntry; isEven: boolean }) {

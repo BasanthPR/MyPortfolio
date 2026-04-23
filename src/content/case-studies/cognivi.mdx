@@ -1,0 +1,104 @@
+---
+title: "Cognivi — Stroke Detection Under $10"
+description: "A privacy-first, multimodal AI system that transforms a 60-second smartphone video into an objective stroke triage signal. Built at TreeHacks 2026."
+thumbnail: "/images/projects/cognivi.jpg"
+date: "2026-02-15"
+tags: ["MediaPipe", "FastAPI", "Claude 3", "RAG", "Next.js", "Modal", "NVIDIA NeMo"]
+slug: "cognivi"
+accent: "#C1121F"
+externalUrl: "https://devpost.com/software/cognivi-quick-accurate-stroke-detection-under-10"
+---
+
+## The Problem
+
+Stroke is a leading cause of death and disability worldwide — killing 7 million people per year, with a 60%+ disability rate for survivors. Every minute of untreated stroke destroys approximately 2 million brain cells and ages the brain by over three years.
+
+Traditional screening tools like FAST exist, but they rely on **subjective human judgment** — creating delays precisely when time is most critical. We asked: what if a smartphone camera could do what a clinician does in those first critical minutes?
+
+---
+
+## What Cognivi Does
+
+Cognivi is a privacy-first, multimodal AI system that analyzes a 60-second smartphone video to identify objective neurologic signs of acute stroke — targeting the three domains measured by the FAST protocol.
+
+**Hand motor assessment** — MediaPipe skeletal landmark tracking quantifies vertical displacement asymmetry between left and right wrists during a bilateral raise task, detecting arm drift as a structured risk percentage.
+
+**Facial asymmetry detection** — Frame-by-frame analysis of eye corners, mouth corners, and midline landmarks quantifies facial droop — turning a clinician's visual scan into a computed score.
+
+**Speech analysis** — FFmpeg audio extraction → NVIDIA NeMo ASR → a PubMed-grounded RAG pipeline feeding Claude 3, which acts as a neurologist evaluating dysarthria, aphasia, word-finding difficulty, and prosodic deviation from the target phrase.
+
+All three scores fuse into a single, interpretable stroke risk estimate returned as structured JSON — with visual overlays and evidence-grounded reasoning so users understand *why* risk was flagged.
+
+---
+
+## Architecture
+
+```
+Browser (Next.js / Vercel)
+     ↓  WebM upload
+FastAPI Backend (Render)
+     ↓  FFmpeg sanitizer → H.264 MP4
+     ↓  Cloudflare R2 (presigned, short-lived, TTL+delete)
+Modal AI Inference Engine
+     ├── MediaPipe + OpenCV → arm drift + facial asymmetry scores
+     ├── NeMo ASR → transcript
+     └── PubMed RAG → Claude 3 neurologic grader → speech score
+     ↓  Structured JSON risk report
+FastAPI → Next.js → User
+```
+
+The three-layer separation — web app, secure backend, AI inference — was intentional. Uploads are processed transiently. Raw biometric data is never persisted. This architecture is designed for HIPAA-conscious deployment from the ground up.
+
+---
+
+## The Sanitizer Pipeline
+
+Browser-recorded WebM files frequently have corrupted headers (missing `moov` atom), which crashes Python video libraries. Before any model touches the input, every upload is re-encoded via raw FFmpeg:
+
+- WebM → H.264 MP4, normalized codecs and containers
+- Handles ~2-minute uploads with large file sizes
+- Makes the entire downstream pipeline resilient to real-world browser variability
+
+This wasn't in the original plan — it emerged from the first hour of testing when half our test videos refused to parse. Shipping without it wasn't an option.
+
+---
+
+## Speech Grading via RAG
+
+Rather than keyword detection or a fine-tuned classifier, we built a retrieval-augmented neurologic grading system:
+
+1. Relevant stroke literature and NIHSS diagnostic criteria retrieved from PubMed-indexed sources
+2. Evidence snippets injected into Claude 3's prompt context
+3. Claude instructed to evaluate: dysarthria, aphasia, deviation from target phrase, cognitive coherence and prosody
+
+The output includes a structured impairment score, a medical summary, and evidence-grounded reasoning — not a black-box classification. Grounding the LLM at inference time reduces hallucination risk in a domain where it matters.
+
+---
+
+## My Role
+
+I led solution architecture and the core data + AI framework:
+
+- Designed the multi-service flow (Next.js → FastAPI → Modal) and defined all API contracts
+- Implemented the FFmpeg sanitizer ingestion pipeline
+- Wired Cloudflare R2 artifact handling: presigned PUT/GET, CORS, short-lived links, TTL + delete flows
+- Built the PubMed RAG pipeline and guardrailed the Claude/OpenAI summarization layer for evidence-backed, non-diagnostic outputs
+- Handled deployment hygiene across Vercel, Render, and Modal
+
+---
+
+## What We Learned
+
+Real clinical signal extraction is hard. Translating clinician heuristics into machine-usable features requires constant calibration against the question: *would a clinician recognize this as meaningful?* Sensitivity vs. specificity tradeoffs become visceral when the downstream consequence is someone's decision to call 911.
+
+We also learned that privacy isn't a post-hoc concern — it has to shape every architectural decision from the first line of code.
+
+---
+
+## What's Next
+
+Clinical validation studies with Stanford School of Medicine collaborators are underway to benchmark sensitivity against real stroke presentations. The longer-term vision: objective neurologic triage available to anyone with a smartphone — reducing disparities in stroke recognition across geographies, languages, and healthcare access.
+
+---
+
+*Built at TreeHacks 2026 · [View on Devpost ↗](https://devpost.com/software/cognivi-quick-accurate-stroke-detection-under-10)*

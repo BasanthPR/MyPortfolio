@@ -14,6 +14,7 @@ export interface BlogPost {
   accent: string;
   featured: boolean;
   coverGradient: string;
+  externalUrl?: string | null;
 }
 
 export function getAllBlogPosts(): BlogPost[] {
@@ -37,6 +38,7 @@ export function getAllBlogPosts(): BlogPost[] {
         accent: data.accent ?? '#C1121F',
         featured: data.featured ?? false,
         coverGradient: data.coverGradient ?? 'linear-gradient(135deg, #1A1A2E, #05050A)',
+        externalUrl: data.externalUrl ?? null,
       } as BlogPost;
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
