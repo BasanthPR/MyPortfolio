@@ -8,6 +8,7 @@ import publicationsData from '@/data/publications.json';
 
 interface PublicationEntry {
   id: string;
+  slug: string;
   title: string;
   authors: string;
   venue: string;
@@ -178,6 +179,22 @@ function PublicationCard({ pub, isEven }: { pub: PublicationEntry; isEven: boole
 
               {/* CTAs */}
               <div className="mt-12 flex flex-wrap items-center gap-8">
+                {/* Primary CTA: Read Full Paper */}
+                <a
+                  href={`/publication/${pub.slug}`}
+                  className="flex items-center gap-3 py-2 border-b border-transparent hover:border-white/20 transition-all group/read"
+                  onMouseEnter={() => setType('view')}
+                  onMouseLeave={() => setType('default')}
+                >
+                  <span
+                    className="text-[11px] tracking-[0.2em] uppercase text-white/40 group-hover/read:text-white transition-colors"
+                    style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
+                  >
+                    Read Full Paper
+                  </span>
+                  <span className="text-white/20 transition-transform group-hover/read:translate-x-1">→</span>
+                </a>
+
                 {pub.pdfUrl && (
                   <a
                     href={pub.pdfUrl}
@@ -193,7 +210,7 @@ function PublicationCard({ pub, isEven }: { pub: PublicationEntry; isEven: boole
                       className="text-[11px] tracking-[0.2em] uppercase text-white/40 group-hover/pdf:text-white transition-colors"
                       style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
                     >
-                      Download Paper
+                      Download PDF
                     </span>
                   </a>
                 )}
@@ -211,25 +228,7 @@ function PublicationCard({ pub, isEven }: { pub: PublicationEntry; isEven: boole
                       className="text-[11px] tracking-[0.2em] uppercase text-white/40 group-hover/ext:text-white transition-colors"
                       style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
                     >
-                      View Publication ↗
-                    </span>
-                  </a>
-                )}
-
-                {pub.doi && (
-                  <a
-                    href={`https://doi.org/${pub.doi}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 py-2 border-b border-transparent hover:border-white/20 transition-all group/doi"
-                    onMouseEnter={() => setType('hover')}
-                    onMouseLeave={() => setType('default')}
-                  >
-                    <span
-                      className="text-[11px] tracking-[0.2em] uppercase text-white/20 group-hover/doi:text-white/50 transition-colors"
-                      style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
-                    >
-                      DOI: {pub.doi}
+                      View on MDPI ↗
                     </span>
                   </a>
                 )}

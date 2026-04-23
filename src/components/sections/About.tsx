@@ -144,8 +144,8 @@ export default function About() {
       <div className="relative max-w-6xl mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[5fr_7fr] gap-16 md:gap-28 lg:gap-36 items-start">
 
-          {/* Left: Photo — sticky */}
-          <div className="md:sticky md:top-28">
+          {/* Left: Photo — sticky on desktop, hidden on mobile (shown below text) */}
+          <div className="hidden md:block md:sticky md:top-28">
             <PhotoColumn />
           </div>
 
@@ -264,6 +264,25 @@ export default function About() {
                 <SocialLink key={link.label} label={link.label} href={link.href} delay={1.1 + i * 0.07} />
               ))}
             </div>
+
+            {/* Mobile-only compact photo */}
+            <motion.div
+              className="block md:hidden mt-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isTextInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
+                <Image
+                  src="/images/about-photo.jpg"
+                  alt={`${siteData.name} portrait`}
+                  fill
+                  className="object-cover object-top filter grayscale contrast-110"
+                  sizes="90vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#05050A] via-transparent to-transparent opacity-60 pointer-events-none" />
+              </div>
+            </motion.div>
 
           </div>
         </div>
