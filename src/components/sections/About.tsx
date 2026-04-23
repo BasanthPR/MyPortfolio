@@ -14,9 +14,10 @@ import siteData from '@/data/site.json';
 import socialData from '@/data/social.json';
 
 const SKILLS = [
-  'Python', 'C++', 'Go', 'PyTorch', 'Apache Kafka',
-  'AWS', 'Kubernetes', 'Next.js', 'SQL', 'Apache Spark',
-  'LangGraph', 'Azure', 'TypeScript', 'Terraform',
+  'Python', 'R', 'C++', 'Go', 'PyTorch', 'Apache Kafka',
+  'AWS', 'Azure', 'Kubernetes', 'Next.js', 'SQL', 'Apache Spark',
+  'LangGraph', 'Scikit-learn', 'Power BI', 'Tableau', 'DAX',
+  'TypeScript', 'Terraform', 'Power Platform',
 ];
 
 const SOCIAL_LINKS = [
@@ -28,7 +29,7 @@ const SOCIAL_LINKS = [
 const STATS = [
   { value: '3+', label: 'Years building' },
   { value: '10+', label: 'Projects shipped' },
-  { value: '2', label: 'Domains: ML & Design' },
+  { value: '4', label: 'Certifications' },
 ];
 
 function PhotoColumn() {
@@ -181,9 +182,9 @@ export default function About() {
               </motion.h2>
             </div>
 
-            {/* Bio paragraph */}
+            {/* Bio — origin story */}
             <motion.div
-              className="pl-5 border-l"
+              className="pl-5 border-l space-y-5"
               style={{ borderColor: 'rgba(242,237,232,0.12)' }}
               initial={{ opacity: 0 }}
               animate={isTextInView ? { opacity: 1 } : {}}
@@ -193,9 +194,28 @@ export default function About() {
                 className="text-base md:text-lg max-w-lg leading-[1.75]"
                 style={{ fontFamily: 'var(--font-dm-sans)', color: 'rgba(242,237,232,0.75)' }}
               >
-                I craft digital experiences that merge deep data analysis with high-end aesthetic design.
-                The goal is never just to make something work — it&apos;s to make it feel alive, purposeful,
-                and uniquely yours.
+                During my first year of engineering, two people I love survived sudden cardiac arrest.
+                Watching a cardiologist trace every millisecond on an ECG print-out — and pinpoint the exact
+                moment each heart faltered — was a revelation: <em style={{ color: 'rgba(242,237,232,0.95)', fontStyle: 'normal' }}>data, interpreted with precision, saves lives.</em>
+              </p>
+              <p
+                className="text-sm md:text-base max-w-lg leading-[1.75]"
+                style={{ fontFamily: 'var(--font-dm-sans)', color: 'rgba(242,237,232,0.50)' }}
+              >
+                Those late-night explorations into HMMs, SVMs, and arrhythmia detection set my compass.
+                Coming from a family of professors, I learned that knowledge is worthless unless it&apos;s
+                shared for social good. Today I&apos;m a data-science practitioner who enjoys connecting
+                the dots — ideas across disciplines, people across teams, applications across industries.
+              </p>
+              <p
+                className="text-sm md:text-base max-w-lg leading-[1.75]"
+                style={{ fontFamily: 'var(--font-dm-sans)', color: 'rgba(242,237,232,0.50)' }}
+              >
+                Backed by 3+ years translating complex datasets into clear actions for stakeholders in
+                telecom, logistics, and e-commerce — I&apos;m now pursuing an M.S. in Applied Data Science
+                at SJSU, sharpening statistical rigor and entrepreneurial vision toward a
+                healthcare-focused analytics startup that empowers NGOs to improve outcomes for
+                underserved communities.
               </p>
             </motion.div>
 
@@ -221,6 +241,24 @@ export default function About() {
                     {stat.label}
                   </span>
                 </div>
+              ))}
+            </motion.div>
+
+            {/* Certifications */}
+            <motion.div
+              className="flex flex-wrap gap-2"
+              initial={{ opacity: 0 }}
+              animate={isTextInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.65 }}
+            >
+              {['AZ-900', 'DP-900', 'PL-900', 'IIT-M · Master Data Science'].map((cert) => (
+                <span
+                  key={cert}
+                  className="text-[8px] tracking-[0.2em] uppercase px-3 py-1.5 rounded-full border border-white/[0.07] text-white/25"
+                  style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
+                >
+                  {cert}
+                </span>
               ))}
             </motion.div>
 
