@@ -167,18 +167,19 @@ export default function About() {
             {/* Heading */}
             <div className="overflow-hidden">
               <motion.h2
-                className="font-normal leading-[1.0] tracking-tight"
+                className="font-normal leading-[0.9]"
                 style={{
                   fontFamily: 'var(--font-instrument-serif)',
-                  fontSize: 'clamp(2.6rem, 5vw, 5.5rem)',
+                  fontSize: 'clamp(3.5rem, 7vw, 8rem)',
                   color: 'var(--ivory)',
-                  letterSpacing: '-0.02em',
+                  letterSpacing: '-0.03em',
                 }}
                 initial={{ y: '105%' }}
                 animate={isTextInView ? { y: 0 } : {}}
                 transition={{ duration: 1.0, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               >
-                Who I am
+                Who I{' '}
+                <em className="text-white/20 italic">am</em>
               </motion.h2>
             </div>
 

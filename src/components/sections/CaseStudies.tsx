@@ -70,30 +70,6 @@ const CASE_STUDIES: CaseStudyEntry[] = [
     index: 3,
     imageLabel: 'NLP',
   },
-  {
-    id: '5',
-    title: 'Luminary: Client-Side Affect Detection for Adaptive Audio',
-    description:
-      'TensorFlow.js + MobileNetV2 running entirely in-browser, inferring 7 emotional states at 30fps to drive generative Web Audio API soundscapes. 11 iterations to solve the camera permission problem. +340% session length.',
-    tag: 'UX/ML',
-    slug: 'luminary',
-    linkedinUrl: null,
-    accent: '#E8593C',
-    index: 4,
-    imageLabel: 'AI/UX',
-  },
-  {
-    id: '6',
-    title: 'Cartograph: WebGL Instanced Terrain from Arbitrary CSV',
-    description:
-      'InstancedMesh + custom GLSL shaders rendering 500K data points in a single draw call at 60fps. D3 for data pipeline only — all rendering in Three.js. First-person navigation, cinematic fly-to animations, SSAO + bloom post-processing.',
-    tag: 'Visual',
-    slug: 'cartograph',
-    linkedinUrl: null,
-    accent: '#3B8BD4',
-    index: 5,
-    imageLabel: '3D/GL',
-  },
 ];
 
 function CaseStudyCard({ study, isEven }: { study: CaseStudyEntry; isEven: boolean }) {

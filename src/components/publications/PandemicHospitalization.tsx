@@ -116,7 +116,7 @@ export default function PandemicHospitalization() {
   return (
     <PublicationLayout
       title="A Big Data Pipeline Approach for Predicting Real-Time Pandemic Hospitalization Risk"
-      authors="Vishnu S. Pendyala, Mayank Kapadia, Basanth Periyapatnaroopakumar, Manav Anandani, Nischitha Nagendran"
+      authors="Vishnu S. Pendyala, Mayank Kapadia, Basanth Periyapatna Roopa Kumar, Manav Anandani, Nischitha Nagendran"
       venue="Department of Applied Data Science, College of Information, Data, and Society, San Jose State University"
       venueShort="MDPI · Algorithms 2025"
       year={2025}
