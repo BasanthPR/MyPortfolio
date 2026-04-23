@@ -165,7 +165,7 @@ export default function FireSensePaper() {
 
       <SubHeading>Soft Label Generation</SubHeading>
       <Prose>
-        Rather than using binary masks from a single annotator, soft labels encode multi-annotator consensus: ŷ_soft(i,j) = ⅓ ∑ y_a(i,j) for annotators a ∈ {Schroeder, Murphy, Kumar-Roy}. This yields soft labels in {0, 0.33, 0.66, 1.0}, capturing uncertainty at fire boundaries where annotators disagree. The approach reduces overfitting to noisy annotations and produces smoother decision boundaries that generalize better to unseen data.
+        Rather than using binary masks from a single annotator, soft labels encode multi-annotator consensus: ŷ_soft(i,j) = ⅓ ∑ y_a(i,j) for annotators a ∈ &#123;Schroeder, Murphy, Kumar-Roy&#125;. This yields soft labels in &#123;0, 0.33, 0.66, 1.0&#125;, capturing uncertainty at fire boundaries where annotators disagree. The approach reduces overfitting to noisy annotations and produces smoother decision boundaries that generalize better to unseen data.
       </Prose>
 
       <DataTable
@@ -186,7 +186,7 @@ export default function FireSensePaper() {
 
       <SubHeading>Temperature Scaling</SubHeading>
       <Prose>
-        To calibrate prediction probabilities, temperature scaling p_calibrated = σ(z/T) was applied as a post-hoc step where T is optimized on the validation set. The optimal T* = 1.287 > 1 indicates the uncalibrated model is overconfident — a common finding in deep neural networks. Temperature scaling reduces Expected Calibration Error (ECE) from 0.142 to 0.020 (−86.1%) and Brier Score from 0.089 to 0.061 (−31.2%).
+        To calibrate prediction probabilities, temperature scaling p_calibrated = σ(z/T) was applied as a post-hoc step where T is optimized on the validation set. The optimal T* = 1.287 &gt; 1 indicates the uncalibrated model is overconfident — a common finding in deep neural networks. Temperature scaling reduces Expected Calibration Error (ECE) from 0.142 to 0.020 (−86.1%) and Brier Score from 0.089 to 0.061 (−31.2%).
       </Prose>
 
       <SectionDivider accent={ACCENT} />
